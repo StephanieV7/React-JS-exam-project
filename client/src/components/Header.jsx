@@ -16,9 +16,7 @@ export default function Header () {
               growth using online marketing and conversion optimization
               tactics
             </p>
-            <a className="btn-solid-lg page-scroll" href="#intro">
-              DISCOVER
-            </a>
+     
           </div>
         </div>{" "}
         {/* end of col */}
