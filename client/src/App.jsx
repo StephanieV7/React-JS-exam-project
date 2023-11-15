@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import AllTrips from "./components/AllTrips";
 import Timer from "./components/Timer";
 
+
 function App() {
 
   return (
@@ -16,8 +17,6 @@ function App() {
           <Header />
           <AllTrips title="October 2023" destination1="Italy" destination2="Egypt" duration="15" startDate="01.10.2023" endDate="15.10.2023" />
           <Timer />
-
-
 
           {/* Intro */}
           <div id="intro" className="basic-1">
@@ -118,6 +117,7 @@ function App() {
           </div>{" "}
           {/* end of cards-1 */}
           {/* end of description */}
+          
           {/* Services */}
           <div id="services" className="cards-2">
             <div className="container">
