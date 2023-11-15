@@ -1,69 +1,56 @@
+import { Link } from 'react-router-dom';
+
 export default function NavBar() {
     return (
-        //   {/* Navbar */}
+    
   <nav className="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
-  {/* Text Logo - Use this if you don|t have a graphic logo
-  {/* <a class="navbar-brand logo-text page-scroll" href="index.html">Aria</a> */}
-  {/* Image Logo */}
-  <a className="navbar-brand logo-image" href="index.html"> 
+
+  <a className="navbar-brand logo-image" to="index.html"> 
     <img src="images/logo.svg" alt="alternative" />
   </a>
 
   <div className="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul className="navbar-nav ml-auto">
       <li className="nav-item">
-        <a className="nav-link page-scroll" href="#header">
+        <Link  className="nav-link page-scroll" to="/">
           HOME <span className="sr-only">(current)</span>
-        </a>
+        </Link>
       </li>
       <li className="nav-item">
-        <a className="nav-link page-scroll" href="#projects">
+        <Link className="nav-link page-scroll" to="/trips">
           PROJECTS
-        </a>
+        </Link>
       </li>
       {/* Dropdown Menu */}
       <li className="nav-item dropdown">
-        <a
+        <Link
           className="nav-link dropdown-toggle page-scroll"
-          href="#about"
+          to="/about"
           id="navbarDropdown"
           role="button"
           aria-haspopup="true"
           aria-expanded="false"
         >
           ABOUT
-        </a>
+        </Link>
         <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a className="dropdown-item" href="terms-conditions.html">
+          <Link className="dropdown-item" to="/">
             <span className="item-text">TERMS CONDITIONS</span>
-          </a>
+          </Link>
           <div className="dropdown-items-divide-hr" />
-          <a className="dropdown-item" href="privacy-policy.html">
+          <Link className="dropdown-item" to="/">
             <span className="item-text">PRIVACY POLICY</span>
-          </a>
+          </Link>
         </div>
       </li>
       {/* end of dropdown menu */}
       <li className="nav-item">
-        <a className="nav-link page-scroll" href="#contact">
+        <Link className="nav-link page-scroll" to="/contact">
           CONTACT
-        </a>
+        </Link>
       </li>
     </ul>
-    <span className="nav-item social-icons">
-      <span className="fa-stack">
-        <a href="#your-link">
-          <span className="hexagon" />
-          <i className="fab fa-facebook-f fa-stack-1x" />
-        </a>
-      </span>
-      <span className="fa-stack">
-        <a href="#your-link">
-          <span className="hexagon" />
-          <i className="fab fa-twitter fa-stack-1x" />
-        </a>
-      </span>
-    </span>
+    
   </div>
 </nav>
 

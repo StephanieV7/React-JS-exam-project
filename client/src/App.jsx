@@ -1,15 +1,15 @@
 import { Routes, Route } from 'react-router-dom'
 
-import Preloader from "./components/Preloader";
-import NavBar from "./components/NavBar";
-import Header from "./components/Header";
+import Preloader from "./components/preloader/Preloader";
+import NavBar from "./components/navBar/NavBar";
+import Header from "./components/header/Header";
 import AllTrips from "./components/AllTrips";
-import About from './components/About';
-import Intro from "./components/Intro";
-import Footer from "./components/Footer";
-import Contact from "./components/Contact";
-import Services from "./components/Services";
-import Description from "./components/Description";
+import About from './components/about/About';
+import Intro from "./components/home/Intro";
+import Footer from "./components/footer/Footer";
+import Contact from "./components/contact/Contact";
+import Services from "./components/home/Services";
+import Description from "./components/home/Description";
 
 function App() {
 
