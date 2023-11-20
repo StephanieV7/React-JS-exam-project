@@ -18,7 +18,7 @@ export default function NavBar() {
       </li>
       <li className="nav-item">
         <Link className="nav-link page-scroll" to="/trips">
-          PROJECTS
+          MY TRIPS
         </Link>
       </li>
       {/* Dropdown Menu */}

@@ -1,7 +1,10 @@
 import { Button, Form } from 'react-bootstrap';
 import { useState } from 'react'
+import * as tripService from '../../services/tripService'
+import { useNavigate } from 'react-router-dom';
 
 const formInitialState = {
+  title: '',
   destination: '',
   startDate: '',
   endDate: '',
@@ -10,24 +13,40 @@ const formInitialState = {
 export default function AddTripModal() {
 
   const [formValues, setFormValues] = useState(formInitialState);
+  const navigate = useNavigate();
 
   const changeHandler = (e) => {
 
     setFormValues(state => ({ ...state, [e.target.name]: e.target.value }))
   }
 
+
+  
   const resetFormHandler = () => {
     setFormValues(formInitialState)
   }
 
-  const submitHandler = () => {
-    console.log(formValues);
+  const submitHandler = async () => {
+    await tripService.create(formValues);
 
-    resetFormHandler();
+    navigate('/trips')
+
+
   }
 
   return (
     <Form>
+
+      <Form.Group className="mb-3" >
+        <Form.Label>Title</Form.Label>
+        <Form.Control
+          name="title"
+          id="title"
+          type="text"
+          value={formValues.title}
+          onChange={changeHandler}
+          />
+      </Form.Group>
 
       <Form.Group className="mb-3" >
         <Form.Label>Destination</Form.Label>
@@ -43,20 +62,20 @@ export default function AddTripModal() {
       <Form.Group className="mb-3">
         <Form.Label>Start date</Form.Label>
         <Form.Control
-        name='startDate' 
-        id='startDate' 
-        type="date" 
-        value={formValues.startDate}
-        onChange={changeHandler} />
+          name='startDate'
+          id='startDate'
+          type="date"
+          value={formValues.startDate}
+          onChange={changeHandler} />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>End date</Form.Label>
-        <Form.Control 
-        name='endDate' 
-        id='endDate'
-        type="date" 
-        value={formValues.endDate}
-        onChange={changeHandler} />
+        <Form.Control
+          name='endDate'
+          id='endDate'
+          type="date"
+          value={formValues.endDate}
+          onChange={changeHandler} />
       </Form.Group>
 
       <Button type="button" onClick={submitHandler} variant="primary">
