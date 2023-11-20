@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Preloader from "./components/preloader/Preloader";
 import NavBar from "./components/navBar/NavBar";
 import Header from "./components/header/Header";
-import AllTrips from "./components/AllTrips";
+import AllTrips from "./components/myTrips/AllTrips";
 import About from './components/about/About';
 import Intro from "./components/home/Intro";
 import Footer from "./components/footer/Footer";
