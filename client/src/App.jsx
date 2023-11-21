@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 
-import NavBar from './components/navBar/NavBar2';
+import NavBar from './components/navBar/NavBar';
 import Header from "./components/header/Header";
 import AllTrips from "./components/tripsList/TripsList";
 import About from './components/about/About';

@@ -35,7 +35,9 @@ export default function AddTripModal() {
   }
 
   return (
-    <Form>
+    <div className='main-container'>
+
+      <Form>
 
       <Form.Group className="mb-3" >
         <Form.Label>Title</Form.Label>
@@ -85,6 +87,8 @@ export default function AddTripModal() {
         Reset fields
       </Button>
     </Form>
+    </div>
+    
   );
 }
 

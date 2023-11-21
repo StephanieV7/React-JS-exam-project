@@ -5,7 +5,7 @@ export default function Footer() {
 
             <div className="footer">
              
-                            <p className="p-small">
+                            <p >
                                 Copyright © 2023
                             </p>
                         </div>
