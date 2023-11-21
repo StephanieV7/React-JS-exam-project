@@ -2,7 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 
 
 import NavBar from './components/navBar/NavBar';
-import Header from "./components/header/Header";
+
 import AllTrips from "./components/tripsList/TripsList";
 import About from './components/about/About';
 
@@ -11,7 +11,8 @@ import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import TripDetails from './components/tripDetails/TripDetails';
 import AddTripModal from './components/tripsList/AddTripModal';
-
+import Login from './components/login/Login'
+import Register from './components/register/Register'
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
        <div>
         
           <NavBar />
-          <Header />
+       
 
           <Routes>
             <Route path='/' element={ <Home />} />
@@ -30,6 +31,8 @@ function App() {
             <Route path='/addTrip' element={<AddTripModal />} />
             <Route path="/trips/:_id" element={<TripDetails />} />
             <Route path='/about' element={<About />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
          
           </Routes>
 

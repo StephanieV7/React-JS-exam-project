@@ -1,8 +1,8 @@
 /* Custom styles for React Bootstrap Navbar */
 .navbar-custom {
-  background-color: #1c394e; /* Change the background color */
+  background-color: #1c394e; 
 }
 
 .navbar-custom .navbar-nav .nav-link {
-  color: #fff !important; /* Change the text color */
+  color: #fff !important; 
 }
