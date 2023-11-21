@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import TripTemplate from "./tripTemplate/TripTemplate"
 import * as tripService from '../../services/tripService'
 import { useNavigate} from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 
 export default function AllTrips(props) {
@@ -19,8 +20,7 @@ export default function AllTrips(props) {
 
     return (
         <>
-           
-           <button onClick={onClickAddTrip}>Add trip</button>
+           <Button variant="outline-info" onClick={onClickAddTrip}>Add trip</Button>{' '}
             
 
             <div className="all-trips">
