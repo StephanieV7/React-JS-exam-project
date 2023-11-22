@@ -14,6 +14,7 @@ import TripDetails from './components/tripDetails/TripDetails';
 import AddTripModal from './components/tripsList/AddTripModal';
 import Login from './components/login/Login'
 import Register from './components/register/Register'
+import Logout from './components/logout/Logout'
 import Blog from './components/blog/Blog';
 
 function App() {
@@ -35,9 +36,15 @@ function App() {
     navigate('/')
   }
 
+  const logoutHandler = () => {
+    setAuth({});
+    localStorage.removeItem('accessToken')
+  }
+
   const values = {
     loginSubmitHandler,
     registerSubmitHandler,
+    logoutHandler,
     username: auth.username || auth.email,
     email: auth.email,
     isAuthenticated: !!auth.email,
@@ -58,6 +65,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/logout' element={<Logout />} />
         <Route path='/blog' element={<Blog />} />
       </Routes>
 
