@@ -1,17 +1,23 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TripTemplate from "./tripTemplate/TripTemplate"
 import * as tripService from '../../services/tripService'
 import { useNavigate } from "react-router-dom";
 import { Button, Stack } from "react-bootstrap";
+import AuthContext from '../../contexts/AuthContext';
 
 
-export default function AllTrips(props) {
+
+export default function AllTrips() {
     const [trips, setTrips] = useState([]);
     const navigate = useNavigate();
-
+    const {_id} = useContext(AuthContext)
+    console.log(_id);
     useEffect(() => {
-        tripService.getAll()
-            .then(result => setTrips(result))
+        tripService.getAll(_id)
+            .then(result => {
+                const filteredResult = result.filter((trip)=> trip._ownerId == _id)
+                setTrips(filteredResult)
+            })
     }, [])
 
     const onClickAddTrip = () => {

@@ -41,6 +41,7 @@ function App() {
     username: auth.username || auth.email,
     email: auth.email,
     isAuthenticated: !!auth.email,
+    _id: auth._id
   }
 
 

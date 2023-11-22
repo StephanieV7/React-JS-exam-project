@@ -9,8 +9,8 @@ export default function TripTemplate({ _id, title, destination, startDate, endDa
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
                     <Card.Text>
-                        {destination}
-                        From {startDate} to {endDate}
+                        {destination} <br />
+                        Start date: {startDate} 
                     </Card.Text>
 
                     <Button as={Link} to={`/trips/${_id}`} variant="primary">Details</Button>

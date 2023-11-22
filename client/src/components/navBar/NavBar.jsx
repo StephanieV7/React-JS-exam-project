@@ -7,7 +7,7 @@ import AuthContext from '../../contexts/AuthContext';
 import { useContext } from 'react';
 
 export default function NavBar() {
-  const {isAuthenticated, username} = useContext(AuthContext)
+  const { isAuthenticated, username } = useContext(AuthContext)
   return (
     <Navbar expand="lg" className="navbar-custom">
       <Container>
@@ -34,7 +34,6 @@ export default function NavBar() {
               </>
 
             )}
-            <span> {username}</span>
           </Nav>
         </Navbar.Collapse>
       </Container>
