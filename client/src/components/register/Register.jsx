@@ -1,56 +1,73 @@
 import { Button, Form } from 'react-bootstrap';
+import useForm from '../../hooks/useForm';
+import { useContext } from 'react';
+import AuthContext from '../../contexts/AuthContext';
+
+const RegisterFormKeys = {
+    EMAIL: 'email',
+    USERNAME: 'username',
+    PASSWORD: 'password',
+    REPEATPASSWORD: 'repeat-password',
+}
 
 export default function Register() {
+    const {registerSubmitHandler} = useContext(AuthContext)
+    const { formValues, onChange, onSubmit } = useForm(registerSubmitHandler, {
+        [RegisterFormKeys.EMAIL]: '',
+        [RegisterFormKeys.USERNAME]: '',
+        [RegisterFormKeys.PASSWORD]: '',
+        [RegisterFormKeys.REPEATPASSWORD]: '',
+    })
     return (
         <div className='main-container'>
-          
-            <Form>
+
+            <Form onSubmit={onSubmit}>
 
                 <Form.Group className="mb-3" >
                     <Form.Label>E-mail</Form.Label>
                     <Form.Control
-                        name="email"
+                        name={RegisterFormKeys.EMAIL}
                         id="email"
                         type="email"
-                    // value={formValues.email}
-                    // onChange={changeHandler}
+                        value={formValues[RegisterFormKeys.EMAIL]}
+                        onChange={onChange}
                     />
                 </Form.Group>
 
                 <Form.Group className="mb-3" >
                     <Form.Label>Username</Form.Label>
                     <Form.Control
-                        name="username"
+                        name={RegisterFormKeys.USERNAME}
                         id="username"
                         type="text"
-                    // value={formValues.username}
-                    // onChange={changeHandler}
+                        value={formValues[RegisterFormKeys.USERNAME]}
+                        onChange={onChange}
                     />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
-                        name='password'
+                        name={RegisterFormKeys.PASSWORD}
                         id='password'
                         type="password"
-                    // value={formValues.password}
-                    // onChange={changeHandler} 
+                        value={formValues[RegisterFormKeys.PASSWORD]}
+                        onChange={onChange}
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>Repeat password</Form.Label>
                     <Form.Control
-                        name='repeat-password'
+                        name={RegisterFormKeys.REPEATPASSWORD}
                         id='repeat-password'
-                        type="repeat-password"
-                    // value={formValues.repeat-password}
-                    // onChange={changeHandler} 
+                        type="password"
+                        value={formValues[RegisterFormKeys.REPEATPASSWORD]}
+                        onChange={onChange}
                     />
                 </Form.Group>
 
-                <Button type="button" variant="primary">
-                    Add trip
+                <Button type="submit" variant="primary" value="Register">
+                    Register
                 </Button>
 
             </Form>

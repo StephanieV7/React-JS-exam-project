@@ -3,8 +3,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
+import AuthContext from '../../contexts/AuthContext';
+import { useContext } from 'react';
 
 export default function NavBar() {
+  const {isAuthenticated, username} = useContext(AuthContext)
   return (
     <Navbar expand="lg" className="navbar-custom">
       <Container>
@@ -13,10 +16,25 @@ export default function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={Link} to={'/'} >HOME</Nav.Link>
-            <Nav.Link as={Link} to={'/trips'} >MY TRIPS</Nav.Link>
             <Nav.Link as={Link} to={'/about'} >ABOUT</Nav.Link>
-            <Nav.Link as={Link} to={'/login'} >LOG IN</Nav.Link>
-            <Nav.Link as={Link} to={'/register'} >REGISTER</Nav.Link>
+            <Nav.Link as={Link} to={'/blog'} >BLOG</Nav.Link>
+            {isAuthenticated && (
+              <>
+                <Nav.Link as={Link} to={'/trips'} >MY TRIPS</Nav.Link>
+                <Nav.Link as={Link} to={'/logout'} >LOG OUT</Nav.Link>
+              </>
+
+
+            )}
+
+            {!isAuthenticated && (
+              <>
+                <Nav.Link as={Link} to={'/login'} >LOGIN</Nav.Link>
+                <Nav.Link as={Link} to={'/register'} >REGISTER</Nav.Link>
+              </>
+
+            )}
+            <span> {username}</span>
           </Nav>
         </Navbar.Collapse>
       </Container>
