@@ -2,6 +2,7 @@ import { Button, Form } from 'react-bootstrap';
 import useForm from '../../hooks/useForm';
 import AuthContext from '../../contexts/AuthContext';
 import { useContext } from 'react';
+import styles from './Login.module.css'
 
 const LoginFormKeys = {
     EMAIL: 'email',
@@ -17,7 +18,7 @@ export default function Login() {
 
 
     return (
-        <div className='main-container'>
+        <div className={styles.mainContainer}>
 
             <Form onSubmit={onSubmit}>
 

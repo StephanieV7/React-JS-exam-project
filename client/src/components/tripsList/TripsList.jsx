@@ -4,7 +4,7 @@ import * as tripService from '../../services/tripService'
 import { useNavigate } from "react-router-dom";
 import { Button, Stack } from "react-bootstrap";
 import AuthContext from '../../contexts/AuthContext';
-
+import styles from './TripsList.module.css'
 
 
 export default function AllTrips() {
@@ -15,11 +15,11 @@ export default function AllTrips() {
     useEffect(() => {
         tripService.getAll(_id)
             .then(result => {
-                const filteredResult = result.filter((trip)=> trip._ownerId == _id)
+                const filteredResult = result.filter((trip)=> trip._ownerId == _id) //it works, but make it more efficient - no need to fetch all trips, just fetch by id
                 setTrips(filteredResult)
             })
     }, [])
-
+    
     const onClickAddTrip = () => {
         navigate('/addTrip')
     }
@@ -27,12 +27,12 @@ export default function AllTrips() {
     return (
         <>
 
-            <div className="button-container">
-                <Button className='add-trip-button' variant="outline-info" onClick={onClickAddTrip}>Add new trip</Button>{' '}
+            <div className={styles.buttonContainer}>
+                <Button className={styles.addTripButton} variant="outline-info" onClick={onClickAddTrip}>Add new trip</Button>{' '}
 
             </div>
 
-            <div className="main-container">
+            <div className={styles.mainContainer}>
                 <Stack gap={3}>
                     {
                         trips.map(trip => <TripTemplate key={trip._id} {...trip} />)

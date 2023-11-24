@@ -2,6 +2,7 @@ import { Button, Form } from 'react-bootstrap';
 import useForm from '../../hooks/useForm';
 import { useContext } from 'react';
 import AuthContext from '../../contexts/AuthContext';
+import styles from './Register.module.css'
 
 const RegisterFormKeys = {
     EMAIL: 'email',
@@ -19,7 +20,7 @@ export default function Register() {
         [RegisterFormKeys.REPEATPASSWORD]: '',
     })
     return (
-        <div className='main-container'>
+        <div className={styles.mainContainer}>
 
             <Form onSubmit={onSubmit}>
 

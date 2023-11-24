@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import * as tripService from '../../services/tripService';
 import { Button } from "react-bootstrap";
 //import GoogleMapComponent from "./addMoreDetails/GoogleMaps";
+import styles from './TripDetails.module.css'
 
 
 export default function TripDetails() {
@@ -20,9 +21,9 @@ export default function TripDetails() {
         <div>
             <h1>{trip.title} details</h1>
 
-            <div className="button-container">
-                <Button className='add-trip-button' variant="outline-info">Add more details</Button>{' '}
-                <Button className='add-trip-button' variant="outline-info">Share</Button>{' '}
+            <div className={styles.buttonContainer}>
+                <Button className={styles.addTripButton} variant="outline-info">Add more details</Button> {' '}
+                <Button className={styles.addTripButton} variant="outline-info">Share</Button>{' '}
 
             </div>
             {/* <div>

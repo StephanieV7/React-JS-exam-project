@@ -54,23 +54,26 @@ function App() {
 
   return (
     <AuthContext.Provider value={values}>
+      <div>
 
-      <NavBar />
+        <NavBar />
 
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/trips' element={<AllTrips />} />
-        <Route path='/addTrip' element={<AddTripModal />} />
-        <Route path="/trips/:_id" element={<TripDetails />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/logout' element={<Logout />} />
-        <Route path='/blog' element={<Blog />} />
-      </Routes>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/trips' element={<AllTrips />} />
+          <Route path='/addTrip' element={<AddTripModal />} />
+          <Route path="/trips/:_id" element={<TripDetails />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/logout' element={<Logout />} />
+          <Route path='/blog' element={<Blog />} />
+        </Routes>
 
-      <Footer />
-      
+        <Footer />
+      </div>
+
+
     </AuthContext.Provider>
   )
 }

@@ -1,14 +1,16 @@
+import styles from './Footer.module.css'
+
 export default function Footer() {
 
     return (
         <>
 
-            <div className="footer">
+            <footer className={styles.footer}>
              
                             <p >
                                 Copyright © 2023
                             </p>
-                        </div>
+                        </footer>
        
 
         </>

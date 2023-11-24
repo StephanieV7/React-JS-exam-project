@@ -6,10 +6,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AuthContext from '../../contexts/AuthContext';
 import { useContext } from 'react';
 
+
 export default function NavBar() {
   const { isAuthenticated, username } = useContext(AuthContext)
   return (
-    <Navbar expand="lg" className="navbar-custom">
+    <Navbar sticky='top' bg='4A5B72' expand="lg" className="navbar-custom">
       <Container>
         {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

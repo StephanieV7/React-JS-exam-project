@@ -1,0 +1,23 @@
+.mainContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh ;
+    padding-left: 20vh;
+
+  }
+  
+  .buttonContainer {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    height: 10vh !important;
+    /* Set the height of the container to 100% of the viewport height */
+    padding-right: 250px !important;
+    /* Optional: Add some padding to the right for spacing */
+  }
+  
+  .addTripButton{
+    font-size: 20px !important;
+    padding: 10px 20px !important;
+  }
