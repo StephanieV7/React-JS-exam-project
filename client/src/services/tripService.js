@@ -1,9 +1,12 @@
-const baseUrl = 'http://localhost:3030/data/mytrips'
+const baseUrl = 'http://localhost:3030/data/trips'
 
-export const getAll = async () => {
-    const response = await fetch(`${baseUrl}`);
+export const getAll = async (_id) => {
+
+    const query = new URLSearchParams({
+        where: `_ownerId="${_id}"`
+    })
+    const response = await fetch(`${baseUrl}?${query}`)
     const result = await response.json();
-
     return result;
 }
 

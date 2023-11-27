@@ -32,7 +32,9 @@ function App() {
   const registerSubmitHandler = async (values) => {
     const result = await authService.register(values.email, values.password);
     setAuth(result);
-    localStorage.setItem('accessToken', result.accessToken)
+    localStorage.setItem('accessToken', result.accessToken);
+    console.log(result);
+    await authService.copyUserToCollection(result.email, result._id)
     navigate('/')
   }
 

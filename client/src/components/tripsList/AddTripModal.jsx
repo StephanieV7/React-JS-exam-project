@@ -1,5 +1,5 @@
 import { Button, Form } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import * as tripService from '../../services/tripService';
 import { useNavigate } from 'react-router-dom';
 import styles from './AddTripModal.module.css';
@@ -40,10 +40,12 @@ export default function AddTripModal() {
   const submitHandler = async (e) => {
     e.preventDefault()
     await tripService.create(formValues);
-
     resetFormHandler();
     navigate('/trips');
   };
+
+
+
 
   return (
     <div className={styles.mainContainer}>
@@ -101,15 +103,15 @@ export default function AddTripModal() {
           Add trip
         </Button>
         <Button className={styles.addTripButton} type="button" onClick={resetFormHandler} variant="primary">
-        Reset fields
-      </Button>
+          Reset fields
+        </Button>
       </Form>
 
 
       <Button className={styles.addTripButton} type="button" onClick={addDestinationHandler} variant="primary">
         Add more fields
       </Button>
-     
+
     </div>
   );
 }

@@ -11,6 +11,15 @@ export default function TripDetails() {
 
     const { _id } = useParams();
 
+    // const checkUser = async () => {
+    //     const response = await fetch(`http://localhost:3030/users/me`, { method: 'GET', headers: {
+    //         'X-Authorization': localStorage.getItem('accessToken')
+    //     } })
+    //     const data = await response.json();
+    //     console.log(data);
+    // }
+
+    
 
     useEffect(() => {
         tripService.getOne(_id)
@@ -22,8 +31,8 @@ export default function TripDetails() {
             <h1>{trip.title} details</h1>
 
             <div className={styles.buttonContainer}>
-                <Button className={styles.addTripButton} variant="outline-info">Add more details</Button> {' '}
-                <Button className={styles.addTripButton} variant="outline-info">Share</Button>{' '}
+                <Button className={styles.addTripButton} variant="outline-info">Edit/ Update</Button> {' '}
+                <Button className={styles.addTripButton} variant="outline-info" >Share</Button>{' '}
 
             </div>
             {/* <div>

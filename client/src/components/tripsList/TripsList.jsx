@@ -11,13 +11,10 @@ export default function AllTrips() {
     const [trips, setTrips] = useState([]);
     const navigate = useNavigate();
     const {_id} = useContext(AuthContext)
-    console.log(_id);
+  
     useEffect(() => {
         tripService.getAll(_id)
-            .then(result => {
-                const filteredResult = result.filter((trip)=> trip._ownerId == _id) //it works, but make it more efficient - no need to fetch all trips, just fetch by id
-                setTrips(filteredResult)
-            })
+            .then(result => setTrips(result))
     }, [])
     
     const onClickAddTrip = () => {
