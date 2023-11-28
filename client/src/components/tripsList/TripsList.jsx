@@ -10,13 +10,13 @@ import styles from './TripsList.module.css'
 export default function AllTrips() {
     const [trips, setTrips] = useState([]);
     const navigate = useNavigate();
-    const {_id} = useContext(AuthContext)
-  
+    const { _id } = useContext(AuthContext)
+
     useEffect(() => {
         tripService.getAll(_id)
             .then(result => setTrips(result))
     }, [])
-    
+
     const onClickAddTrip = () => {
         navigate('/addTrip')
     }
@@ -30,13 +30,15 @@ export default function AllTrips() {
             </div>
 
             <div className={styles.mainContainer}>
-                <Stack gap={3}>
-                    {
-                        trips.map(trip => <TripTemplate key={trip._id} {...trip} />)
-                    }
+                {trips.length > 0 
+                ?    <Stack gap={3}>
+                        {
+                            trips.map(trip => <TripTemplate key={trip._id} {...trip} />)
+                        }
 
-                </Stack>
-
+                    </Stack>
+                : <p>No added trips.</p>
+}
             </div>
 
         </>

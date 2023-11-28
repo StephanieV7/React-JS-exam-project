@@ -22,6 +22,7 @@ export default function NavBar() {
             {isAuthenticated && (
               <>
                 <Nav.Link as={Link} to={'/trips'} >MY TRIPS</Nav.Link>
+                <Nav.Link as={Link} to={'/sharedTrips'} >SHARED TRIPS</Nav.Link>
                 <Nav.Link as={Link} to={'/logout'} >LOG OUT</Nav.Link>
               </>
 

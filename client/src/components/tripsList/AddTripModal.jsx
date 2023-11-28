@@ -40,6 +40,7 @@ export default function AddTripModal() {
   const submitHandler = async (e) => {
     e.preventDefault()
     await tripService.create(formValues);
+    
     resetFormHandler();
     navigate('/trips');
   };

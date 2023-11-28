@@ -1,9 +1,6 @@
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Routes, Route} from 'react-router-dom';
 
-import AuthContext from './contexts/AuthContext';
-import * as authService from './services/authService'
-
+import {AuthProvider} from './contexts/AuthContext';
 
 import NavBar from './components/navBar/NavBar';
 import AllTrips from "./components/tripsList/TripsList";
@@ -16,46 +13,13 @@ import Login from './components/login/Login'
 import Register from './components/register/Register'
 import Logout from './components/logout/Logout'
 import Blog from './components/blog/Blog';
+import SharedTrips from './components/sharedTrips/SharedTrips';
 
 function App() {
-  const [auth, setAuth] = useState({});
-  const navigate = useNavigate();
-
-  const loginSubmitHandler = async (values) => {
-    const result = await authService.login(values.email, values.password);
-    console.log(result);
-    setAuth(result);
-    localStorage.setItem('accessToken', result.accessToken);
-    navigate('/trips');
-  }
-
-  const registerSubmitHandler = async (values) => {
-    const result = await authService.register(values.email, values.password);
-    setAuth(result);
-    localStorage.setItem('accessToken', result.accessToken);
-    console.log(result);
-    await authService.copyUserToCollection(result.email, result._id)
-    navigate('/')
-  }
-
-  const logoutHandler = () => {
-    setAuth({});
-    localStorage.removeItem('accessToken')
-  }
-
-  const values = {
-    loginSubmitHandler,
-    registerSubmitHandler,
-    logoutHandler,
-    username: auth.username || auth.email,
-    email: auth.email,
-    isAuthenticated: !!auth.email,
-    _id: auth._id
-  }
-
+  
 
   return (
-    <AuthContext.Provider value={values}>
+    <AuthProvider>
       <div>
 
         <NavBar />
@@ -63,6 +27,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/trips' element={<AllTrips />} />
+          <Route path='/sharedTrips' element={<SharedTrips/>} />
           <Route path='/addTrip' element={<AddTripModal />} />
           <Route path="/trips/:_id" element={<TripDetails />} />
           <Route path='/about' element={<About />} />
@@ -76,7 +41,7 @@ function App() {
       </div>
 
 
-    </AuthContext.Provider>
+    </AuthProvider>
   )
 }
 

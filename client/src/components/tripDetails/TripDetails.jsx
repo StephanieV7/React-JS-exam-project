@@ -4,6 +4,7 @@ import * as tripService from '../../services/tripService';
 import { Button } from "react-bootstrap";
 //import GoogleMapComponent from "./addMoreDetails/GoogleMaps";
 import styles from './TripDetails.module.css'
+import * as sharedService from '../../services/sharedService';
 
 
 export default function TripDetails() {
@@ -18,13 +19,23 @@ export default function TripDetails() {
     //     const data = await response.json();
     //     console.log(data);
     // }
-
-    
+    const data = {title: 'Asia', destinations: [{destination: 'Japan', startDate: '2023-11-28', endDate: '2023-12-01'}], shared: ['peter@abv.bg', 'stephanie@abv.bg']}
 
     useEffect(() => {
         tripService.getOne(_id)
             .then(result => setTrip(result));
     }, [_id]);
+
+
+    const shareHandler = async () => {
+        
+          
+            const result = await sharedService.create(data);
+            console.log(result);
+          
+        
+    }
+
 
     return (
         <div>
@@ -32,7 +43,7 @@ export default function TripDetails() {
 
             <div className={styles.buttonContainer}>
                 <Button className={styles.addTripButton} variant="outline-info">Edit/ Update</Button> {' '}
-                <Button className={styles.addTripButton} variant="outline-info" >Share</Button>{' '}
+                <Button className={styles.addTripButton} variant="outline-info" onClick={shareHandler}>Share</Button>{' '}
 
             </div>
             {/* <div>
@@ -40,9 +51,9 @@ export default function TripDetails() {
                 <GoogleMapComponent />
             </div> */}
             <div>
-                <h1>Destination: {trip.destination}</h1>
-                <p>Start date: {trip.startDate}</p>
-                <p>End date: {trip.endDate}</p>
+                <h1>Destination: {trip.destinations[0].destination}</h1>
+                <p>Start date: {trip.destinations[0].startDate}</p>
+                <p>End date: {trip.destinations[0].endDate}</p>
             </div>
 
         </div>
