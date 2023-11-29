@@ -1,7 +1,7 @@
 import { Card, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
-export default function TripTemplate({ _id, title, destinations, startDate }) {
+export default function TripTemplate({ _id, title, destinations }) {
     
     return (
         <div key={_id} className="p-2">
@@ -10,7 +10,9 @@ export default function TripTemplate({ _id, title, destinations, startDate }) {
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
                     <Card.Text>
-                        Destination: {destinations.map((object) => object.destination).join(' ,')} <br />
+                    {/* Destination: {destination} <br />
+                        Start date: {startDate}  */}
+                        Destination: {destinations.map((object) => object.destination).join(', ')} <br />
                         Start date: {destinations[0].startDate} 
                     </Card.Text>
 

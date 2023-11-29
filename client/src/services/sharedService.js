@@ -1,13 +1,11 @@
-export const create = async (data, email) => {
-    const response = await fetch(`http://localhost:3030/data/trips`, {
+export const create = async (data) => {
+    const response = await fetch(`http://localhost:3030/data/passengerInfo`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
             'X-Authorization': localStorage.getItem('accessToken')
         },
-        body: JSON.stringify(data, {
-            shared: email
-        })
+        body: JSON.stringify(data)
     });
 
     const result = await response.json();

@@ -2,14 +2,14 @@ import { Button, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import * as tripService from '../../services/tripService';
 import { useNavigate } from 'react-router-dom';
-import styles from './AddTripModal.module.css';
+import styles from './AddTrip.module.css';
 
 const formInitialState = {
   title: '',
-  destinations: [{ destination: '', startDate: '', endDate: '' }],
+  destinations: [{destination: "", startDate: "", endDate: ''}],
 };
 
-export default function AddTripModal() {
+export default function AddTrip() {
   const [formValues, setFormValues] = useState(formInitialState);
 
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export default function AddTripModal() {
   };
 
 
-
+console.log(formValues);
 
   return (
     <div className={styles.mainContainer}>

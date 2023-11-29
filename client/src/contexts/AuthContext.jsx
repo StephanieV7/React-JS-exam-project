@@ -33,7 +33,8 @@ export const AuthProvider = ({ children }) => {
 
     const logoutHandler = () => {
         setAuth({});
-        localStorage.removeItem('accessToken')
+        localStorage.removeItem('accessToken');
+        navigate('/');
     }
 
     const values = {
