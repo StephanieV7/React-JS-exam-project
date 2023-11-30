@@ -6,13 +6,17 @@ import { Button, Alert, Card, Form } from "react-bootstrap";
 import styles from './TripDetails.module.css'
 import * as sharedService from '../../services/sharedService';
 import AddPassengerInfoModal from "./AddPassengerInfoModal";
+import ShareTripModal from "./ShareTripModal";
 
 export default function TripDetails() {
     const [trip, setTrip] = useState({});
     const [loadedTripInfo, setLoadedTripInfo] = useState(false);
-    const [loadedPassengerInfo, setLoadedPassengerInfo] = useState(false);
+    
     const [passengerInfo, setPassengerInfo] = useState('');
     const [show, setShow] = useState(false);
+    
+    const [showShareTrip, setShowShareTrip] = useState(false);
+    const [email, setEmail] = useState('')
 
     const { _id } = useParams();
 
@@ -36,30 +40,8 @@ export default function TripDetails() {
 
     }, [trip]);
 
-    useEffect(() => {
-        if (passengerInfo.length > 0) {
-            setLoadedPassengerInfo(true);
-        }
 
-    }, [passengerInfo])
-
-    const shareHandler = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-
-        const data = { shared: formData.get('email') };
-
-
-        const result = await tripService.edit(_id, data);
-        return true
-        //to-do: add error handling
-        //to-do: add form validation
-        //to-do: hide the alert info message after 5 seconds
-    }
-
-    console.log(passengerInfo);
-    console.log(loadedPassengerInfo);
-    if (!loadedTripInfo || !loadedPassengerInfo) {
+    if (!loadedTripInfo ) {
         return <p>Loading...</p>;
         //add spinner
     }
@@ -77,25 +59,24 @@ export default function TripDetails() {
         setShow(false)
     }
 
-    console.log(passengerInfo);
+    const onShareClickClose = () => {
+        setShowShareTrip(false)
+    }
+    const onShareClick= () => {
+        setShowShareTrip(true)
+    }
+
+
     return (
         <div>
             <h1>{trip.title}</h1>
 
             <div className={styles.buttonContainer}>
                 <Button className={styles.addTripButton} variant="outline-info">Edit/ Update</Button> {' '}
-                {/* <Button className={styles.addTripButton} variant="outline-info" onClick={onShareClick}>Share</Button>{' '} */}
-                <form onSubmit={shareHandler}>
-                    <div>
-                        <label htmlFor="email">Share this trip to:</label>{' '}
-                        <input type="email" name="email" id="email" placeholder="enter email address" />
-                    </div>
-                    <p>Note: you can share your trips only to other registered users</p>
-                    <div>
-                        <input type="submit" value="Send" />
-                    </div>
-                    {shareHandler && <Alert transition={true} variant="info">"You've successfuly shared your trip."</Alert>}
-                </form>
+
+                
+                <Button variant="primary" onClick={onShareClick}>Share this trip</Button>
+                {showShareTrip && <ShareTripModal show={showShareTrip} tripId={_id} onShareClickClose={onShareClickClose} onShareClick={onShareClick} />}
 
             </div>
             {/* <div>
@@ -105,7 +86,7 @@ export default function TripDetails() {
             <div>
 
                 {trip.destinations.map((d, i) => (
-                    <Card>
+                    <Card key={i}>
                         <Card.Body>Destination {i + 1}: {d.destination}</Card.Body>
                         <Card.Body>Start date: {d.startDate}</Card.Body>
                         <Card.Body>End date: {d.endDate}</Card.Body>
@@ -119,7 +100,7 @@ export default function TripDetails() {
             </div>
 
             <div>
-                {passengerInfo.map((x, _id) => (
+                {passengerInfo && passengerInfo.map((x, _id) => (
                     <Card key={_id}>
                         <Card.Body>
                             <h3>{x.name}</h3>
