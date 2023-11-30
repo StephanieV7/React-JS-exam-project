@@ -1,32 +1,47 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as tripService from '../../services/tripService';
-import { Button, Alert, Card } from "react-bootstrap";
+import { Button, Alert, Card, Form } from "react-bootstrap";
 //import GoogleMapComponent from "./addMoreDetails/GoogleMaps";
 import styles from './TripDetails.module.css'
 import * as sharedService from '../../services/sharedService';
-
-
+import AddPassengerInfoModal from "./AddPassengerInfoModal";
 
 export default function TripDetails() {
     const [trip, setTrip] = useState({});
-    const [loadedResponse, setLoadedResponse] = useState(false);
+    const [loadedTripInfo, setLoadedTripInfo] = useState(false);
+    const [loadedPassengerInfo, setLoadedPassengerInfo] = useState(false);
+    const [passengerInfo, setPassengerInfo] = useState('');
+    const [show, setShow] = useState(false);
 
     const { _id } = useParams();
 
     useEffect(() => {
-        const fetchById = async () => {
 
-            const result = await tripService.getOne(_id);
-            setTrip(result);
-            setLoadedResponse(true);
+        tripService.getOne(_id)
+            .then((result) => {
+                setTrip(result);
+            })
+        sharedService.getPassengerInfo(_id)
+            .then(setPassengerInfo);
 
-        };
 
-        fetchById();
+
     }, [_id]);
 
-    //???при shared trips и trips list не е необходимо да правя отделна функция в useEffect и ми зарежда правилно, а тук ако не я сложа се опитва да извлича данни от празен обект и ми дава грешка, т.е. кодът надолу се изпълнява преди да се е върнал резултатът от заявката
+    useEffect(() => {
+        if (trip._id) {
+            setLoadedTripInfo(true);
+        }
+
+    }, [trip]);
+
+    useEffect(() => {
+        if (passengerInfo.length > 0) {
+            setLoadedPassengerInfo(true);
+        }
+
+    }, [passengerInfo])
 
     const shareHandler = async (e) => {
         e.preventDefault();
@@ -42,13 +57,27 @@ export default function TripDetails() {
         //to-do: hide the alert info message after 5 seconds
     }
 
-    if (!loadedResponse) {
+    console.log(passengerInfo);
+    console.log(loadedPassengerInfo);
+    if (!loadedTripInfo || !loadedPassengerInfo) {
         return <p>Loading...</p>;
         //add spinner
     }
 
+    const onClickAddPassengerInfo = () => {
+        setShow(true)
+    }
 
+    const onClickAddPassengerInfoClose = () => {
+        setShow(false)
+    }
 
+    const onClickSubmitPassengerInfo = (newPassengerInfo) => {
+        setPassengerInfo((state) => [...state, newPassengerInfo])
+        setShow(false)
+    }
+
+    console.log(passengerInfo);
     return (
         <div>
             <h1>{trip.title}</h1>
@@ -74,27 +103,39 @@ export default function TripDetails() {
                 <GoogleMapComponent />
             </div> */}
             <div>
-                {/* <h1>Destination: {trip.destination}</h1>
-                <p>Start date: {trip.startDate}</p>
-                <p>End date: {trip.endDate}</p> */}
-                <h1>Destination: {trip.destinations[0].destination}</h1>
-                <p>Start date: {trip.destinations[0].startDate}</p>
-                <p>End date: {trip.destinations[0].endDate}</p>
+
+                {trip.destinations.map((d, i) => (
+                    <Card>
+                        <Card.Body>Destination {i + 1}: {d.destination}</Card.Body>
+                        <Card.Body>Start date: {d.startDate}</Card.Body>
+                        <Card.Body>End date: {d.endDate}</Card.Body>
+                    </Card>
+
+                ))}
+
             </div>
             <div>
                 <p>Accomodation:</p>
             </div>
 
-            <Card>
-                <Card.Header>Featured</Card.Header>
-                <Card.Body>
-                    <Card.Title>Special title treatment</Card.Title>
-                    <Card.Text>
-                        With supporting text below as a natural lead-in to additional content.
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-            </Card>
+            <div>
+                {passengerInfo.map((x, _id) => (
+                    <Card key={_id}>
+                        <Card.Body>
+                            <h3>{x.name}</h3>
+                            <p>Arrival date: {x.arrivalDate == '' ? 'no info' : x.arrivalDate}</p>
+                            <p>Arrival time: {x.arrivalTime == '' ? 'no info' : x.arrivalTime}</p>
+                            <p>Accomodation: {x.accomodation == '' ? 'no info' : x.accomodation}</p>
+                            <p>Departure date: {x.departureDate == '' ? 'no info' : x.departureDate}</p>
+                            <p>Departure time: {x.departureTime == '' ? 'no info' : x.departureTime}</p>
+                        </Card.Body>
+
+                    </Card>
+                ))}
+            </div>
+            <Button variant="primary" onClick={onClickAddPassengerInfo}>Add your info to the trip</Button>
+            {show && <AddPassengerInfoModal show={show} tripId={_id} onClickAddPassengerInfoClose={onClickAddPassengerInfoClose} onClickSubmitPassengerInfo={onClickSubmitPassengerInfo} />}
+
         </div>
 
     )

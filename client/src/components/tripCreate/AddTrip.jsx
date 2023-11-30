@@ -1,4 +1,4 @@
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 import { useState } from 'react';
 import * as tripService from '../../services/tripService';
 import { useNavigate } from 'react-router-dom';
@@ -6,24 +6,27 @@ import styles from './AddTrip.module.css';
 
 const formInitialState = {
   title: '',
-  destinations: [{destination: "", startDate: "", endDate: ''}],
+  destinations: [{ destination: "", startDate: "", endDate: '' }],
 };
 
 export default function AddTrip() {
   const [formValues, setFormValues] = useState(formInitialState);
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
   const changeHandler = (e, index) => {
 
-    if (e.target.name === 'title') {
-      setFormValues((state) => ({ ...state, [e.target.name]: e.target.value }));
-    } else {
-      const updatedDestinations = [...formValues.destinations];
-      updatedDestinations[index][e.target.name] = e.target.value;
+    const copyDestinations = [...formValues.destinations];
+    //copyDestinations[index][e.target.name] = e.target.value; това модифицира директно масива, затова даваше грешка
 
-      setFormValues((state) => ({ ...state, destinations: updatedDestinations }));
-    }
+    copyDestinations[index] = {
+      ...copyDestinations[index],
+      [e.target.name]: e.target.value,
+    };
+
+    setFormValues((state) => ({ ...state, destinations: copyDestinations }));
+
   };
 
   const addDestinationHandler = () => {
@@ -35,22 +38,48 @@ export default function AddTrip() {
 
   const resetFormHandler = () => {
     setFormValues(formInitialState);
+
+  };
+
+  const validateForm = () => {
+    if (!formValues.title || !formValues.destinations[0].destination || !formValues.destinations[0].startDate) {
+      setError('Title, destination and start date are required');
+      return false;
+    }
+    
+    const startDate = new Date(formValues.destinations[0].startDate);
+    const endDate = new Date(formValues.destinations[0].endDate);
+    const currentDate = new Date();
+
+    if (startDate > endDate) {
+      setError('End date cannot be before the start date');
+      return false;
+    }
+
+    if (endDate < currentDate) {
+      setError('End date cannot be in the past');
+      return false;
+    }
+
+    return true;
   };
 
   const submitHandler = async (e) => {
-    e.preventDefault()
-    await tripService.create(formValues);
-    
-    resetFormHandler();
-    navigate('/trips');
+    e.preventDefault();
+
+    if (validateForm()) {
+      await tripService.create(formValues);
+      resetFormHandler();
+      navigate('/trips');
+    }
+
   };
-
-
-console.log(formValues);
 
   return (
     <div className={styles.mainContainer}>
       <Form onSubmit={submitHandler}>
+
+        {error && <Alert variant="danger">{error}</Alert>}
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>
           <Form.Control
@@ -100,6 +129,7 @@ console.log(formValues);
 
           </div>
         ))}
+        
         <Button className={styles.addTripButton} type="submit" variant="primary">
           Add trip
         </Button>

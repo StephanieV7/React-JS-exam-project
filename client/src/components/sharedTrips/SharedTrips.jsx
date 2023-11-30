@@ -1,4 +1,4 @@
-import * as sharedService from '../../services/sharedService'
+import * as tripService from '../../services/tripService'
 import { useState, useEffect, useContext } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import { Stack } from "react-bootstrap";
@@ -10,7 +10,7 @@ export default function SharedTrips() {
     const { email } = useContext(AuthContext)
 
     useEffect(() => {
-        sharedService.getSharedTrips(email)
+        tripService.getSharedTrips(email)
             .then(result => setSharedTrips(result))
     }, [])
 

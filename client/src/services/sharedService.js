@@ -1,4 +1,5 @@
-export const create = async (data) => {
+export const create = async (data, _id) => {
+    data._tripId = _id
     const response = await fetch(`http://localhost:3030/data/passengerInfo`, {
         method: 'POST',
         headers: {
@@ -13,12 +14,12 @@ export const create = async (data) => {
     return result
 }
 
-export const getSharedTrips = async (email) => {
+export const getPassengerInfo = async (_id) => {
 
     const query = new URLSearchParams({
-        where: `shared="${email}"`
+        where: `_tripId="${_id}"`
     })
-    const response = await fetch(`http://localhost:3030/data/trips?${query}`)
+    const response = await fetch(`http://localhost:3030/data/passengerInfo/?${query}`)
     const result = await response.json();
     return result;
 }

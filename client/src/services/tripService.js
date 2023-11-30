@@ -12,6 +12,15 @@ export const getAll = async (_id) => {
     return result;
 }
 
+export const getSharedTrips = async (email) => {
+
+    const query = new URLSearchParams({
+        where: `shared="${email}"`
+    })
+    const response = await fetch(`http://localhost:3030/data/trips?${query}`)
+    const result = await response.json();
+    return result;
+}
 
 export const getOne = async (_id) => {
     

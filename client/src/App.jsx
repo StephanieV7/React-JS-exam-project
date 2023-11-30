@@ -17,6 +17,7 @@ import SharedTrips from './components/sharedTrips/SharedTrips';
 import AuthGuard from './components/guards/AuthGuard';
 
 
+
 function App() {
 
 
@@ -40,6 +41,7 @@ function App() {
             <Route path='/addTrip' element={<AddTrip />} />
             <Route path="/trips/:_id" element={<TripDetails />} />
             <Route path='/logout' element={<Logout />} />
+          
           </Route>
 
         </Routes>
