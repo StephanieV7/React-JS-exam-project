@@ -8,6 +8,7 @@ import * as sharedService from '../../services/sharedService';
 import AddPassengerInfoModal from "./AddPassengerInfoModal";
 import ShareTripModal from "./ShareTripModal";
 
+
 export default function TripDetails() {
     const [trip, setTrip] = useState({});
     const [loadedTripInfo, setLoadedTripInfo] = useState(false);
@@ -19,6 +20,8 @@ export default function TripDetails() {
     const [email, setEmail] = useState('')
 
     const { _id } = useParams();
+
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -66,6 +69,15 @@ export default function TripDetails() {
         setShowShareTrip(true)
     }
 
+    const onClickDeleteTrip = async () => {
+        const hasConfirmed = confirm(`Are you sure you want to delete the whole trip ${trip.title}?`)
+        
+        if(hasConfirmed) {
+           await tripService.remove(_id);
+            navigate('/trips')
+        }
+    
+    }
 
     return (
         <div>
@@ -114,9 +126,10 @@ export default function TripDetails() {
                     </Card>
                 ))}
             </div>
-            <Button variant="primary" onClick={onClickAddPassengerInfo}>Add your info to the trip</Button>
+            <Button variant="primary" onClick={onClickAddPassengerInfo}>Add your info to the trip</Button> {" "}
             {show && <AddPassengerInfoModal show={show} tripId={_id} onClickAddPassengerInfoClose={onClickAddPassengerInfoClose} onClickSubmitPassengerInfo={onClickSubmitPassengerInfo} />}
 
+            <Button variant="danger" onClick={onClickDeleteTrip}>Delete trip</Button>
         </div>
 
     )

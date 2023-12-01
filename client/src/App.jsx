@@ -15,6 +15,7 @@ import Logout from './components/logout/Logout'
 import Blog from './components/blog/Blog';
 import SharedTrips from './components/sharedTrips/SharedTrips';
 import AuthGuard from './components/guards/AuthGuard';
+import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 
 
 
@@ -22,35 +23,39 @@ function App() {
 
 
   return (
-    <AuthProvider>
-      <div>
+    <ErrorBoundary>
 
-        <NavBar />
+      <AuthProvider>
+        <div>
 
-        <Routes>
-          <Route path='/' element={<Home />} />
+          <NavBar />
 
-          <Route path='/about' element={<About />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/blog' element={<Blog />} />
+          <Routes>
+            <Route path='/' element={<Home />} />
 
-          <Route element={<AuthGuard />}>
-            <Route path='/trips' element={<AllTrips />} />
-            <Route path='/sharedTrips' element={<SharedTrips />} />
-            <Route path='/addTrip' element={<AddTrip />} />
-            <Route path="/trips/:_id" element={<TripDetails />} />
-            <Route path='/logout' element={<Logout />} />
-          
-          </Route>
+            <Route path='/about' element={<About />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/blog' element={<Blog />} />
 
-        </Routes>
+            <Route element={<AuthGuard />}>
+              <Route path='/trips' element={<AllTrips />} />
+              <Route path='/sharedTrips' element={<SharedTrips />} />
+              <Route path='/addTrip' element={<AddTrip />} />
+              <Route path="/trips/:_id" element={<TripDetails />} />
+              <Route path='/logout' element={<Logout />} />
 
-        <Footer />
-      </div>
+            </Route>
+
+          </Routes>
+
+          <Footer />
+        </div>
 
 
-    </AuthProvider>
+      </AuthProvider>
+    </ErrorBoundary>
+
   )
 }
 

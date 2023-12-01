@@ -23,7 +23,7 @@ export const getSharedTrips = async (email) => {
 }
 
 export const getOne = async (_id) => {
-    
+
     const response = await fetch(`${baseUrl}/${_id}`)
     const result = await response.json();
 
@@ -57,4 +57,16 @@ export const edit = async (_id, tripData) => {
     const result = await response.json();
 
     return result
+}
+
+export const remove = async (_id) => {
+
+    const response = await fetch(`${baseUrl}/${_id}`, {
+        method: 'DELETE', headers: {
+            'X-Authorization': localStorage.getItem('accessToken')
+        },
+    })
+    const result = await response.json();
+    return result;
+
 }
