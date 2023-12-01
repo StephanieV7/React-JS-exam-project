@@ -31,6 +31,7 @@ export const getOne = async (_id) => {
 }
 
 export const create = async (tripData) => {
+    
     const response = await fetch(`${baseUrl}`, {
         method: 'POST',
         headers: {

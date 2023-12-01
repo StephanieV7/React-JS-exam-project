@@ -1,6 +1,6 @@
-export const create = async (data, _id) => {
-    data._tripId = _id
-    const response = await fetch(`http://localhost:3030/data/passengerInfo`, {
+export const create = async (data, tripId) => {
+    data._tripId = tripId
+    const response = await fetch(`http://localhost:3030/data/passengerInfo/`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',

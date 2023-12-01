@@ -1,4 +1,4 @@
-export default function Blog () {
+export default function News () {
     return(
         <h1>Articles</h1>
     )

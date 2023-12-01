@@ -18,14 +18,16 @@ export default function NavBar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to={'/'} >HOME</Nav.Link>
             <Nav.Link as={Link} to={'/about'} >ABOUT</Nav.Link>
-            <Nav.Link as={Link} to={'/blog'} >BLOG</Nav.Link>
+            <Nav.Link as={Link} to={'/news'} >NEWS</Nav.Link>
             {isAuthenticated && (
               <>
                 <Nav.Link as={Link} to={'/trips'} >MY TRIPS</Nav.Link>
                 <Nav.Link as={Link} to={'/sharedTrips'} >SHARED TRIPS</Nav.Link>
                 <Nav.Link as={Link} to={'/logout'} >LOG OUT</Nav.Link>
+                <Navbar.Text style={{ color: 'white' }}>Hello, {username}</Navbar.Text >
+                
               </>
-
+              
 
             )}
 

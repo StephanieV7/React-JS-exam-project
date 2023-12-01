@@ -22,7 +22,7 @@ export const ShareTripModal = ({ show, tripId,
         console.log(result);
         onShareClick();
         onShareClickClose();
-      
+
         //to-do: add error handling?
         //to-do: add form validation
     }

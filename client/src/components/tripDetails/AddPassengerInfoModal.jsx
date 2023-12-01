@@ -10,6 +10,7 @@ const formInitialState = {
   accomodation: '',
   departureDate: '',
   departureTime: '',
+  additionalNotes: '',
 };
 
 export default function AddPassengerInfoModal({show, tripId, onClickAddPassengerInfoClose, onClickSubmitPassengerInfo}) {
@@ -29,7 +30,6 @@ export default function AddPassengerInfoModal({show, tripId, onClickAddPassenger
     e.preventDefault();
 
     const response = await sharedService.create(formValues, tripId);
-    console.log(response);
     
     onClickSubmitPassengerInfo(response);
 
@@ -108,6 +108,16 @@ export default function AddPassengerInfoModal({show, tripId, onClickAddPassenger
                 id="departureTime"
                 type="time"
                 value={formValues.departureTime}
+                onChange={changeHandler}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" >
+              <Form.Label>Additional Notes:</Form.Label>
+              <Form.Control
+                name="additionalNotes"
+                id="additionalNotes"
+                type="text"
+                value={formValues.additionalNotes}
                 onChange={changeHandler}
               />
             </Form.Group>

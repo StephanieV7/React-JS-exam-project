@@ -12,10 +12,12 @@ import AddTrip from './components/tripCreate/AddTrip';
 import Login from './components/login/Login'
 import Register from './components/register/Register'
 import Logout from './components/logout/Logout'
-import Blog from './components/blog/Blog';
+import Blog from './components/news/news';
 import SharedTrips from './components/sharedTrips/SharedTrips';
 import AuthGuard from './components/guards/AuthGuard';
 import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
+import UpdateTrip from './components/tripUpdate/TripUpdate';
+import News from './components/news/news';
 
 
 
@@ -36,12 +38,13 @@ function App() {
             <Route path='/about' element={<About />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/blog' element={<Blog />} />
+            <Route path='/news' element={<News />} />
 
             <Route element={<AuthGuard />}>
               <Route path='/trips' element={<AllTrips />} />
               <Route path='/sharedTrips' element={<SharedTrips />} />
               <Route path='/addTrip' element={<AddTrip />} />
+              <Route path='/updateTrip/:_id' element={<UpdateTrip />} />
               <Route path="/trips/:_id" element={<TripDetails />} />
               <Route path='/logout' element={<Logout />} />
 
