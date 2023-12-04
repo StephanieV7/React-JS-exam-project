@@ -1,27 +1,81 @@
-/* @import "trip-cards.css";
-@import "containers.css"; */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&family=Exo+2:wght@300&display=swap');
 
 
-html { height: 100%; }
+html {
+  height: 100%;
+}
+
 body {
-    font-family: 'Courier New', Courier, monospace;
-    min-height:100%; 
-    position:relative; 
-    padding-bottom:[footer-height] 
+  font-family: 'Exo 2', sans-serif;
+  height: 100%;
+
+  background-color: #1c394e;
+  background-image: url(../images/boatOpacity50.jpg);
+  background-size: cover;
+  
 }
 
 .navbar-custom {
-    background-color: #1c394e; 
-   
-  }
+  background-color: rgba(21, 42, 59, 0.6);
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.75);
+}
 
-  
-  .navbar-custom .navbar-nav .nav-link {
-    color: #fff ;
-  
-    
-  }
-  .navbar-custom .navbar-nav .nav-link:hover{
-    color: #68a0c7 !important;
-    
-  }
+.navbar-custom .navbar-nav .nav-link {
+  color: #fff;
+  font-family: 'Exo 2', sans-serif;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+  background-color: #415f79 !important;
+  border-radius: 10%;
+}
+
+.custom-card {
+  background-color: rgba(21, 42, 59, 0.75) !important;
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.75);
+}
+
+.custom-card .card-title {
+  color: white;
+}
+
+.custom-card .card-text {
+  font-family: 'Exo 2', sans-serif;
+  color: white;
+}
+
+.custom-card .btn-primary:hover {
+  background-color: #415f79 !important;
+  ;
+
+}
+
+.btn-primary {
+  padding: 10px 20px !important;
+  color: #ffffff !important;
+  border-color: #2c4353 !important;
+  background-color: rgba(51, 79, 102, 0.6) !important;
+  color: white;
+  margin-right: 10px;
+}
+
+.btn-danger {
+  padding: 10px 20px 10px 20px !important;
+  color: #ffffff !important;
+  border-color: #2c4353 !important;
+  background-color: rgba(151, 18, 18, 0.7) !important;
+}
+
+.card {
+  background-color:rgba(21, 42, 59, 0.5) !important;
+  width: 20%;
+  margin-bottom: 20px;
+  margin: 0 auto;
+  margin-top: 20px;
+ 
+}
+.card-body {
+  background-color: rgba(21, 42, 59, 0.75) !important;
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.75) !important;
+  color: white !important;
+}

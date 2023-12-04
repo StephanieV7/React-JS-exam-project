@@ -2,16 +2,15 @@ import { Button, Form, Alert } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import * as tripService from '../../services/tripService';
 import { useNavigate, useParams } from 'react-router-dom';
-
-const formInitialState = {
-  title: '',
-  destinations: [{ destination: "", startDate: "", endDate: '', currency: '' }],
-  accomodation: '',
-  importantInformation: '',
-};
+import styles from './TripUpdate.module.css';
+import { validateForm } from '../../utils/validateForm';
 
 export default function UpdateTrip() {
-  const [formValues, setFormValues] = useState(formInitialState);
+  const [formValues, setFormValues] = useState({
+    title: '',
+    destinations: [{ destination: "", startDate: "", arrivalTime: "", endDate: '', departureTime: '', accomodation: '', currency: '', additionalNotes: '' }],
+  });
+
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
@@ -30,12 +29,7 @@ export default function UpdateTrip() {
   const changeHandler = (e, index) => {
 
     const copyDestinations = [...formValues.destinations];
-    //copyDestinations[index][e.target.name] = e.target.value; това модифицира директно масива, затова даваше грешка
-
-    copyDestinations[index] = {
-      ...copyDestinations[index],
-      [e.target.name]: e.target.value,
-    };
+    copyDestinations[index][e.target.name] = e.target.value;
 
     setFormValues((state) => ({ ...state, destinations: copyDestinations }));
 
@@ -44,49 +38,28 @@ export default function UpdateTrip() {
   const addDestinationHandler = () => {
     setFormValues((state) => ({
       ...state,
-      destinations: [...state.destinations, { destination: '', startDate: '', endDate: '', accomodation: '', currency: '' }],
+      destinations: [...state.destinations, { destination: '', startDate: "", arrivalTime: "", endDate: '', departureTime: '', accomodation: '', currency: '', additionalNotes: '' }],
     }));
-  };
-
-  const validateForm = () => {
-    if (!formValues.title || !formValues.destinations[0].destination || !formValues.destinations[0].startDate) {
-      setError('Title, destination and start date are required');
-      return false;
-    }
-
-    const startDate = new Date(formValues.destinations[0].startDate);
-    const endDate = new Date(formValues.destinations[0].endDate);
-    const currentDate = new Date();
-
-    if (startDate > endDate) {
-      setError('End date cannot be before the start date');
-      return false;
-    }
-
-    if (endDate < currentDate) {
-      setError('End date cannot be in the past');
-      return false;
-    }
-
-    return true;
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      await tripService.edit(_id, formValues);
+    const result = validateForm(formValues);
 
-      navigate('/trips');
+    if (!result) {
+      await tripService.edit(_id, formValues);
+      navigate(`/trips/${_id}`);
+    } else {
+      setError(result)
     }
 
-  };
-  console.log(_id);
 
-  console.log(formValues);
+  };
+
 
   return (
-    <div >
+    <div className={styles.tripUpdate}>
       <Form onSubmit={submitHandler}>
 
         {error && <Alert variant="danger">{error}</Alert>}
@@ -126,6 +99,17 @@ export default function UpdateTrip() {
               />
             </Form.Group>
 
+            <Form.Group className="mb-3" >
+              <Form.Label>Arrival time</Form.Label>
+              <Form.Control
+                name="arrivalTime"
+                id="arrivalTime"
+                type="time"
+                value={destination.arrivalTime}
+                onChange={(e) => changeHandler(e, index)}
+              />
+            </Form.Group>
+
             <Form.Group className="mb-3">
               <Form.Label>End date</Form.Label>
               <Form.Control
@@ -137,13 +121,25 @@ export default function UpdateTrip() {
               />
             </Form.Group>
 
+            <Form.Group className="mb-3" >
+              <Form.Label>Departure time</Form.Label>
+              <Form.Control
+                name="departureTime"
+                id="departureTime"
+                type="time"
+                value={destination.departureTime}
+                onChange={(e) => changeHandler(e, index)}
+              />
+            </Form.Group>
+
+
             <Form.Group className="mb-3">
               <Form.Label>Accomodation</Form.Label>
               <Form.Control
                 name="accomodation"
                 id="accomodation"
                 type="text"
-                value={formValues.accomodation}
+                value={destination.accomodation}
                 onChange={(e) => changeHandler(e, index)}
               />
             </Form.Group>
@@ -180,13 +176,17 @@ export default function UpdateTrip() {
                 <option>Bulgarian Lev (BGN)</option>
                 <option>Peruvian Sol (PEN)</option>
               </Form.Select>
-              {/* <Form.Control
-                name="currency"
-                id='currency'
+
+            </Form.Group>
+            <Form.Group className="mb-3" >
+              <Form.Label>Additional Notes:</Form.Label>
+              <Form.Control
+                name="additionalNotes"
+                id="additionalNotes"
                 type="text"
-                value={destination.currency}
+                value={destination.additionalNotes}
                 onChange={(e) => changeHandler(e, index)}
-              /> */}
+              />
             </Form.Group>
 
           </div>
@@ -198,6 +198,10 @@ export default function UpdateTrip() {
 
         <Button type="button" onClick={addDestinationHandler} variant="primary">
           Add more fields
+        </Button> {" "}
+
+        <Button type="button" onClick={() => navigate(`/trips/${_id}`)} variant="primary">
+          Cancel
         </Button>
       </Form>
 

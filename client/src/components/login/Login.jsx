@@ -3,6 +3,7 @@ import useForm from '../../hooks/useForm';
 import AuthContext from '../../contexts/AuthContext';
 import { useContext } from 'react';
 import styles from './Login.module.css'
+import { Link } from 'react-router-dom';
 
 const LoginFormKeys = {
     EMAIL: 'email',
@@ -10,8 +11,8 @@ const LoginFormKeys = {
 }
 
 export default function Login() {
-    const {loginSubmitHandler} = useContext(AuthContext);
-    const {formValues, onChange, onSubmit} = useForm(loginSubmitHandler, {
+    const { loginSubmitHandler } = useContext(AuthContext);
+    const { formValues, onChange, onSubmit } = useForm(loginSubmitHandler, {
         [LoginFormKeys.EMAIL]: '',
         [LoginFormKeys.PASSWORD]: '',
     });
@@ -48,7 +49,9 @@ export default function Login() {
                     Log in
                 </Button>
 
+                <a style={{ color: 'white' }}>If you don't have an account, create one<Link style={{ color: 'white' }} to={'/register'}> here.</Link></a>
             </Form>
+
         </div>
     )
 }

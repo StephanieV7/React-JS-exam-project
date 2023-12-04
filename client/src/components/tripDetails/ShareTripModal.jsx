@@ -39,7 +39,7 @@ export const ShareTripModal = ({ show, tripId,
                         <Form.Control type="email" name='email' placeholder="Add email here" value={formValues.name} onChange={onChangeHandler} />
                         <p>Note: you can share your trips only to other registered users</p>
                     </Form.Group>
-                    <Button variant="primary" type='submit' style={{ marginLeft: '10px' }}>Add</Button>
+                    <Button variant="primary" type='submit' style={{ marginLeft: '10px' }}>Share</Button>
                     <Button variant="secondary" onClick={onShareClickClose}>Close</Button>
                 </Form>
             </Modal.Body>

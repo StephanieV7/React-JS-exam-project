@@ -1,7 +1,9 @@
 .mainContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 50vh ;
-    padding-left: 20vh;
+    align-items: top;
+  /* min-height: 50vh ;
+    padding-left: 20vh; */
+    height: 100vh;
+    margin-top: 30px;
   }

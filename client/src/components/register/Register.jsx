@@ -3,6 +3,7 @@ import useForm from '../../hooks/useForm';
 import { useContext } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import styles from './Register.module.css'
+import { Link } from 'react-router-dom';
 
 const RegisterFormKeys = {
     EMAIL: 'email',
@@ -25,7 +26,7 @@ export default function Register() {
             <Form onSubmit={onSubmit}>
 
                 <Form.Group className="mb-3" >
-                    <Form.Label>E-mail</Form.Label>
+                    <Form.Label>E-mail:</Form.Label>
                     <Form.Control
                         name={RegisterFormKeys.EMAIL}
                         id="email"
@@ -36,7 +37,7 @@ export default function Register() {
                 </Form.Group>
 
                 <Form.Group className="mb-3" >
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label>Username:</Form.Label>
                     <Form.Control
                         name={RegisterFormKeys.USERNAME}
                         id="username"
@@ -47,7 +48,7 @@ export default function Register() {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Password:</Form.Label>
                     <Form.Control
                         name={RegisterFormKeys.PASSWORD}
                         id='password'
@@ -57,7 +58,7 @@ export default function Register() {
                     />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>Repeat password</Form.Label>
+                    <Form.Label>Repeat password:</Form.Label>
                     <Form.Control
                         name={RegisterFormKeys.REPEATPASSWORD}
                         id='repeat-password'
@@ -70,7 +71,7 @@ export default function Register() {
                 <Button type="submit" variant="primary" value="Register">
                     Register
                 </Button>
-
+                <a style={{ color: 'white' }}>If you already have an account, log in<Link style={{ color: 'white' }} to={'/login'}> here.</Link></a>
             </Form>
         </div>
     )

@@ -25,19 +25,19 @@ export default function AllTrips() {
         <>
 
             <div className={styles.buttonContainer}>
-                <Button className={styles.addTripButton} variant="outline-info" onClick={onClickAddTrip}>Add new trip</Button>{' '}
+                <Button className={styles.addTripButton} variant="outline-info" onClick={onClickAddTrip}>Add new trip</Button>
 
             </div>
 
             <div className={styles.mainContainer}>
                 {trips.length > 0 
-                ?    <Stack gap={3}>
+                ?    <Stack direction="horizontal" gap={3}>
                         {
                             trips.map(trip => <TripTemplate key={trip._id} {...trip} />)
                         }
 
                     </Stack>
-                : <p>No added trips.</p>
+                : <h2>No added trips.</h2>
 }
             </div>
 

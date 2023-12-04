@@ -13,10 +13,10 @@ const formInitialState = {
   additionalNotes: '',
 };
 
-export default function AddPassengerInfoModal({show, tripId, onClickAddPassengerInfoClose, onClickSubmitPassengerInfo}) {
- 
-  
+export default function AddPassengerInfoModal({ show, tripId, onClickAddPassengerInfoClose, onClickSubmitPassengerInfo}) {
+
   const [formValues, setFormValues] = useState(formInitialState);
+  const [error, setError] = useState('');
 
   const changeHandler = (e) => {
     setFormValues((state) => ({ ...state, [e.target.name]: e.target.value }));
@@ -26,12 +26,38 @@ export default function AddPassengerInfoModal({show, tripId, onClickAddPassenger
     setFormValues(formInitialState);
   };
 
+  const validateForm = () => {
+    if (!formValues.name) {
+      setError('Name is required');
+      return false;
+    }
+
+    const startDate = new Date(formValues.arrivalDate);
+    const endDate = new Date(formValues.departureDate);
+    const currentDate = new Date();
+
+    if (startDate > endDate) {
+      setError('Departure date cannot be before the arival date');
+      return false;
+    }
+
+    if (endDate < currentDate) {
+      setError('Departure date cannot be in the past');
+      return false;
+    }
+
+    return true;
+  };
+
   const submitPassengerInfo = async (e) => {
     e.preventDefault();
+    if (validateForm()) {
 
-    const response = await sharedService.create(formValues, tripId);
-    
-    onClickSubmitPassengerInfo(response);
+      const response = await sharedService.create(formValues, tripId);
+
+      onClickSubmitPassengerInfo(response);
+    }
+
 
   };
 
@@ -46,6 +72,7 @@ export default function AddPassengerInfoModal({show, tripId, onClickAddPassenger
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        {error && <Alert variant="danger">{error}</Alert>}
           <Form>
 
             <Form.Group className="mb-3" >

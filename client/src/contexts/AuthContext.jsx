@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext} from "react";
 import { useNavigate } from "react-router-dom";
 
 import * as authService from '../services/authService'
@@ -26,8 +26,8 @@ export const AuthProvider = ({ children }) => {
         const result = await authService.register(values.email, values.password);
         setAuth(result);
         localStorage.setItem('accessToken', result.accessToken);
-        console.log(result);
-        await authService.copyUserToCollection(result.email, result._id)
+        // console.log(result);
+        // await authService.copyUserToCollection(result.email, result._id)
         navigate('/')
     }
 

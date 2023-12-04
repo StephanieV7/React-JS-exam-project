@@ -10,8 +10,6 @@ export default function TripTemplate({ _id, title, destinations }) {
                 <Card.Body>
                     <Card.Title>{title}</Card.Title>
                     <Card.Text>
-                    {/* Destination: {destination} <br />
-                        Start date: {startDate}  */}
                         Destination: {destinations.map((object) => object.destination).join(', ')} <br />
                         Start date: {destinations[0].startDate} 
                     </Card.Text>

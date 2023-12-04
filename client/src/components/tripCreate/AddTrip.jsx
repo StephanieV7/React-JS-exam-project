@@ -3,6 +3,7 @@ import { useState } from 'react';
 import * as tripService from '../../services/tripService';
 import { useNavigate } from 'react-router-dom';
 import styles from './AddTrip.module.css';
+import { validateForm } from '../../utils/validateForm';
 
 const formInitialState = {
   title: '',
@@ -38,41 +39,22 @@ export default function AddTrip() {
 
   const resetFormHandler = () => {
     setFormValues(formInitialState);
+    setError('')
 
-  };
-
-  const validateForm = () => {
-    if (!formValues.title || !formValues.destinations[0].destination || !formValues.destinations[0].startDate) {
-      setError('Title, destination and start date are required');
-      return false;
-    }
-    
-    const startDate = new Date(formValues.destinations[0].startDate);
-    const endDate = new Date(formValues.destinations[0].endDate);
-    const currentDate = new Date();
-
-    if (startDate > endDate) {
-      setError('End date cannot be before the start date');
-      return false;
-    }
-
-    if (endDate < currentDate) {
-      setError('End date cannot be in the past');
-      return false;
-    }
-
-    return true;
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (validateForm()) {
+    const result = validateForm(formValues);
+
+    if (!result) {
       await tripService.create(formValues);
       resetFormHandler();
       navigate('/trips');
+    } else {
+      setError(result)
     }
-
   };
 
   return (
@@ -101,8 +83,7 @@ export default function AddTrip() {
                 type="text"
                 value={destination.destination}
                 onChange={(e) => changeHandler(e, index)}
-                placeholder="Enter your destination"
-              />
+                />
             </Form.Group>
 
             <Form.Group className="mb-3">
@@ -130,18 +111,21 @@ export default function AddTrip() {
           </div>
         ))}
         
-        <Button className={styles.addTripButton} type="submit" variant="primary">
+        <Button className={styles.mainButtons} type="submit" variant="primary">
           Add trip
         </Button>
-        <Button className={styles.addTripButton} type="button" onClick={resetFormHandler} variant="primary">
+        <Button className={styles.mainButtons} type="button" onClick={resetFormHandler} variant="primary">
           Reset fields
         </Button>
       </Form>
 
 
-      <Button className={styles.addTripButton} type="button" onClick={addDestinationHandler} variant="primary">
+      <Button className={styles.addMoreFieldsButton} type="button" onClick={addDestinationHandler} variant="primary">
         Add more fields
       </Button>
+      <Button type="button" onClick={() => navigate(`/trips`)} variant="primary">
+          Cancel
+        </Button>
 
     </div>
   );

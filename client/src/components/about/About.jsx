@@ -1,7 +1,12 @@
-export default function About () {
-    return(
-        <>
- <p>about us</p>
-        </>
+import styles from './About.module.css'
+
+export default function About() {
+    return (
+        <div className={styles.about}>
+            <h2> About us</h2>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel perferendis deleniti dicta natus rerum ut non quasi accusantium temporibus? Eum, laudantium! Labore asperiores quod eos illo harum omnis placeat, quam quis dignissimos ipsa! Vitae sit voluptatem voluptate cumque, itaque dicta magni modi ratione dolorem, quo aperiam est numquam omnis! Qui veniam ex delectus ducimus ipsum voluptates harum, eum, dolorum placeat, tempora officiis repudiandae dolorem a cumque? Dolorem commodi quia sapiente qui numquam rerum repellendus quas, voluptate atque, at voluptas neque sint vitae doloremque? Natus quidem consectetur eveniet! Ipsam dolore, in neque, ut rerum totam maiores pariatur officia autem, nesciunt quaerat.</p>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel perferendis deleniti dicta natus rerum ut non quasi accusantium temporibus? Eum, laudantium! Labore asperiores quod eos illo harum omnis placeat, quam quis dignissimos ipsa! Vitae sit voluptatem voluptate cumque, itaque dicta magni modi ratione dolorem, quo aperiam est numquam omnis! Qui veniam ex delectus ducimus ipsum voluptates harum, eum, dolorum placeat, tempora officiis repudiandae dolorem a cumque? Dolorem commodi quia sapiente qui numquam rerum repellendus quas, voluptate atque, at voluptas neque sint vitae doloremque? Natus quidem consectetur eveniet! Ipsam dolore, in neque, ut rerum totam maiores pariatur officia autem, nesciunt quaerat.</p>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel perferendis deleniti dicta natus rerum ut non quasi accusantium temporibus? Eum, laudantium! Labore asperiores quod eos illo harum omnis placeat, quam quis dignissimos ipsa! Vitae sit voluptatem voluptate cumque, itaque dicta magni modi ratione dolorem, quo aperiam est numquam omnis! Qui veniam ex delectus ducimus ipsum voluptates harum, eum, dolorum placeat, tempora officiis repudiandae dolorem a cumque? Dolorem commodi quia sapiente qui numquam rerum repellendus quas, voluptate atque, at voluptas neque sint vitae doloremque? Natus quidem consectetur eveniet! Ipsam dolore, in neque, ut rerum totam maiores pariatur officia autem, nesciunt quaerat.</p>
+        </div>
     )
 }

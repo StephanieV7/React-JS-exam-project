@@ -9,16 +9,14 @@ import Footer from "./components/footer/Footer";
 import Home from "./components/home/Home";
 import TripDetails from './components/tripDetails/TripDetails';
 import AddTrip from './components/tripCreate/AddTrip';
-import Login from './components/login/Login'
-import Register from './components/register/Register'
-import Logout from './components/logout/Logout'
-import Blog from './components/news/news';
+import Login from './components/login/Login';
+import Register from './components/register/Register';
+import Logout from './components/logout/Logout';
 import SharedTrips from './components/sharedTrips/SharedTrips';
 import AuthGuard from './components/guards/AuthGuard';
 import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 import UpdateTrip from './components/tripUpdate/TripUpdate';
 import News from './components/news/news';
-
 
 
 function App() {

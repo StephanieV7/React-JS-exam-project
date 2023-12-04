@@ -24,11 +24,7 @@ export default function NavBar() {
                 <Nav.Link as={Link} to={'/trips'} >MY TRIPS</Nav.Link>
                 <Nav.Link as={Link} to={'/sharedTrips'} >SHARED TRIPS</Nav.Link>
                 <Nav.Link as={Link} to={'/logout'} >LOG OUT</Nav.Link>
-                <Navbar.Text style={{ color: 'white' }}>Hello, {username}</Navbar.Text >
-                
               </>
-              
-
             )}
 
             {!isAuthenticated && (
@@ -37,7 +33,12 @@ export default function NavBar() {
                 <Nav.Link as={Link} to={'/register'} >REGISTER</Nav.Link>
               </>
 
+
             )}
+          </Nav>
+
+          <Nav className="ml-auto">
+            {isAuthenticated && <Navbar.Text style={{ color: 'white' }}> Logged in as {username}</Navbar.Text >}
           </Nav>
         </Navbar.Collapse>
       </Container>
