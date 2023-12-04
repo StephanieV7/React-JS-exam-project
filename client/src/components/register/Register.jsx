@@ -71,7 +71,7 @@ export default function Register() {
                 <Button type="submit" variant="primary" value="Register">
                     Register
                 </Button>
-                <a style={{ color: 'white' }}>If you already have an account, log in<Link style={{ color: 'white' }} to={'/login'}> here.</Link></a>
+                <span style={{ color: 'white' }}>If you already have an account, log in<Link style={{ color: 'white' }} to={'/login'}> here.</Link></span>
             </Form>
         </div>
     )

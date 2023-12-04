@@ -5,18 +5,17 @@ export default function usePersistedState(key, defaultValue) {
         const persistedState = localStorage.getItem(key);
 
         if(persistedState) {
-            return JSON.parse(persistedState); //това ще е началната стойност на стейта
+            return JSON.parse(persistedState); 
         }
 
         return defaultValue;
-    }); //калкулира началния стейт, изпълнява се само при маунт
+    }); 
 
     const setPersistedState = (value) => {
         setState(value);
         
         let serializedValue;
         
-        //имаме функция, когато искаме да се базираме на стария стейт, за да променим с новия стейт
         if (typeof value === 'function') {
             serializedValue = JSON.stringify(value(state))
         } else {
@@ -33,4 +32,3 @@ export default function usePersistedState(key, defaultValue) {
     ])
 
 }
-//четем от локал сторидж само и единствено при рефреш

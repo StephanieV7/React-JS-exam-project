@@ -11,12 +11,20 @@ export const DeletePassengerInfoModal = ({ showDeletePassengerInfo, passengerInf
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
-        await sharedService.removePassengerInfo(passengerInfoId);
-        onDeleteSubmit();
-        onDeleteInfoClick();
-        onDeleteInfoClickClose();
-        navigate('/sharedTrips')
+        try {
+            await sharedService.removePassengerInfo(passengerInfoId);
+            onDeleteSubmit();
+            onDeleteInfoClick();
+            onDeleteInfoClickClose();
+            navigate('/sharedTrips');
+        } catch (error) {
+            
+            onDeleteSubmit(error.message);
+            onDeleteInfoClick();
+            onDeleteInfoClickClose();
+            navigate('/sharedTrips');
+            
+        }
 
     }
     return (

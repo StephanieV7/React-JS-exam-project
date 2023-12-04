@@ -23,12 +23,20 @@ export const getSharedTrips = async (email) => {
 }
 
 export const getOne = async (_id) => {
+    try {
+        const response = await fetch(`${baseUrl}/${_id}`);
 
-    const response = await fetch(`${baseUrl}/${_id}`)
-    const result = await response.json();
+        if (!response.ok) {
+            throw new Error(`Failed to fetch trip: ${response.status}`);
+        }
 
-    return result
-}
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        
+        throw error; 
+    }
+};
 
 export const create = async (tripData) => {
     

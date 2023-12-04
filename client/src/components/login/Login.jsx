@@ -49,7 +49,7 @@ export default function Login() {
                     Log in
                 </Button>
 
-                <a style={{ color: 'white' }}>If you don't have an account, create one<Link style={{ color: 'white' }} to={'/register'}> here.</Link></a>
+                <span style={{ color: 'white' }}>If you don't have an account, create one<Link style={{ color: 'white' }} to={'/register'}> here.</Link></span>
             </Form>
 
         </div>

@@ -18,15 +18,13 @@ export default function TripDetails() {
     const [trip, setTrip] = useState({});
     const [loadedTripInfo, setLoadedTripInfo] = useState(false);
 
-    const [error, setError] = useState(false)
-
     const [addedInfo, setAddedInfo] = useState(false)
 
     const [passengerInfo, setPassengerInfo] = useState([]);
 
     const [showDeletePassengerInfo, setShowDeletePassengerInfo] = useState(false)
 
-    const [showPassengerInfo, setShowPassengerInfo] = useState(false);
+    const [show, setShow] = useState(false);
 
     const [showShareTrip, setShowShareTrip] = useState(false);
 
@@ -38,24 +36,17 @@ export default function TripDetails() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const tripResult = await tripService.getOne(_id);
-                setTrip(tripResult);
-            } catch (error) {
-                setError(error.message);
-            }
 
-            try {
-                const passengerInfoResult = await sharedService.getPassengerInfo(_id);
-                console.log(passengerInfoResult);
-                setPassengerInfo(passengerInfoResult);
-            } catch (error) {
-                setError(error.message);
-            }
-        };
+        tripService.getOne(_id)
+            .then((result) => {
+                setTrip(result);
+            })
 
-        fetchData();
+        sharedService.getPassengerInfo(_id)
+            .then((result) => {
+                setPassengerInfo(result)
+            })
+
     }, [_id]);
 
     useEffect(() => {
@@ -65,31 +56,23 @@ export default function TripDetails() {
 
     }, [trip]);
 
+
     if (!loadedTripInfo) {
         return <p>Loading...</p>;
     }
 
     const onClickAddPassengerInfo = () => {
-        setShowPassengerInfo(true)
+        setShow(true)
     }
 
     const onClickAddPassengerInfoClose = () => {
-        setShowPassengerInfo(false)
+        setShow(false)
     }
 
-    const onClickSubmitPassengerInfo = (result) => {
-
-        if (result) {
-            setPassengerInfo((state) => [...state, result]);
-            setAddedInfo(true);
-            setShowPassengerInfo(false);
-        } else {
-
-            setError(result);
-            setAddedInfo(true);
-            setShowPassengerInfo(false);
-
-        }
+    const onClickSubmitPassengerInfo = (newPassengerInfo) => {
+        setPassengerInfo((state) => [...state, newPassengerInfo]);
+        setAddedInfo(true);
+        setShow(false);
     }
 
     const onShareClickClose = () => {
@@ -112,14 +95,12 @@ export default function TripDetails() {
 
     }
 
-    const onDeleteSubmit = (error) => {
-        setAddedInfo(false);
-        setError(error)
+    const onDeleteSubmit = () => {
+        setAddedInfo(false)
 
     }
 
 
-    console.log(trip);
 
     return (
 
@@ -136,7 +117,7 @@ export default function TripDetails() {
                 </div> :
                 <div className={styles.buttonContainer}>
 
-                    {showPassengerInfo && <AddPassengerInfoModal show={showPassengerInfo} tripId={_id} onClickAddPassengerInfoClose={onClickAddPassengerInfoClose} onClickSubmitPassengerInfo={onClickSubmitPassengerInfo} />}
+                    {show && <AddPassengerInfoModal show={show} tripId={_id} onClickAddPassengerInfoClose={onClickAddPassengerInfoClose} onClickSubmitPassengerInfo={onClickSubmitPassengerInfo} />}
                     {!addedInfo && <Button variant="primary" onClick={onClickAddPassengerInfo}>Add your info to the trip</Button>}
 
 
@@ -168,7 +149,7 @@ export default function TripDetails() {
                         {d.arrivalTime !== undefined && d.arrivalTime !== "" && <Card.Body>Arrival time: {d.arrivalTime}</Card.Body>}
                         {d.endDate !== undefined && d.endDate !== '' && <Card.Body>End date: {formatDate(d.endDate)}</Card.Body>}
                         {d.departureTime !== undefined && d.departureTime !== "" && <Card.Body>Departure time: {d.departureTime}</Card.Body>}
-                        {d.accomodation !== undefined && d.accomodation !== "" && <Card.Body>Accomodation: {d.accomodation}</Card.Body>}
+                        {d.accomodation !== undefined && d.accomodation == "" && <Card.Body>Accomodation: {d.accomodation}</Card.Body>}
                         {d.currency !== undefined && d.currency !== "" && <Card.Body>Currency: {d.currency}</Card.Body>}
                         {d.additionalNotes !== undefined && d.additionalNotes !== "" && <Card.Body>Additional Notes: {d.additionalNotes}</Card.Body>}
                     </Card>
@@ -193,7 +174,7 @@ export default function TripDetails() {
                             {x.additionalNotes !== '' && <Card.Text>Additional notes: {x.additionalNotes}</Card.Text>}
 
                         </Card.Body>
-                        <Button variant="danger" onClick={onDeleteInfoClick} disabled={passengerInfo[0]._ownerId !== userId}> Delete info</Button>
+                        <Button variant="danger" onClick={onDeleteInfoClick}> Delete your info</Button>
 
                         {showDeletePassengerInfo && <DeletePassengerInfoModal showDeletePassengerInfo={showDeletePassengerInfo} passengerInfoId={passengerInfo[0]._id} onDeleteInfoClickClose={onDeleteInfoClickClose} onDeleteInfoClick={onDeleteInfoClick} onDeleteSubmit={onDeleteSubmit} />}
                     </Card>

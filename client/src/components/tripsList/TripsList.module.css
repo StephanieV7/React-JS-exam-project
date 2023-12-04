@@ -4,8 +4,17 @@
   height: 100vh;
   color: white;
   padding: 10px;
+  overflow-y: auto;
 }
 
+.mainContainer::-webkit-scrollbar {
+  width: 12px;
+}
+
+.mainContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(21, 42, 59, 0.75);
+  border-radius: 6px;
+}
 
 .buttonContainer {
   display: flex ;

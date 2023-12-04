@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './contexts/AuthContext';
+import { PassengerInfoProvider } from './contexts/PassengerInfoContext';
 
 import NavBar from './components/navBar/NavBar';
 import AllTrips from "./components/tripsList/TripsList";
@@ -26,34 +27,39 @@ function App() {
     <ErrorBoundary>
 
       <AuthProvider>
+        <PassengerInfoProvider>
         <div>
 
           <NavBar />
+          
+            <Routes>
+              <Route path='/' element={<Home />} />
 
-          <Routes>
-            <Route path='/' element={<Home />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/news' element={<News />} />
 
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/news' element={<News />} />
+              <Route element={<AuthGuard />}>
+                <Route path='/trips' element={<AllTrips />} />
+                <Route path='/sharedTrips' element={<SharedTrips />} />
+                <Route path='/addTrip' element={<AddTrip />} />
+                <Route path='/updateTrip/:_id' element={<UpdateTrip />} />
 
-            <Route element={<AuthGuard />}>
-              <Route path='/trips' element={<AllTrips />} />
-              <Route path='/sharedTrips' element={<SharedTrips />} />
-              <Route path='/addTrip' element={<AddTrip />} />
-              <Route path='/updateTrip/:_id' element={<UpdateTrip />} />
-              <Route path="/trips/:_id" element={<TripDetails />} />
-              <Route path='/logout' element={<Logout />} />
 
-            </Route>
+                <Route path="/trips/:_id" element={<TripDetails />} />
 
-          </Routes>
 
+                <Route path='/logout' element={<Logout />} />
+
+              </Route>
+
+            </Routes>
+         
           <Footer />
         </div>
 
-
+ </PassengerInfoProvider>
       </AuthProvider>
     </ErrorBoundary>
 

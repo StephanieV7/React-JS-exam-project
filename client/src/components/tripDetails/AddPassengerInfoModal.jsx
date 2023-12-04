@@ -53,10 +53,16 @@ export default function AddPassengerInfoModal({ show, tripId, onClickAddPassenge
     e.preventDefault();
     if (validateForm()) {
 
-      const response = await sharedService.create(formValues, tripId);
-
-      onClickSubmitPassengerInfo(response);
+      try {
+        const response = await sharedService.create(formValues, tripId);
+        onClickSubmitPassengerInfo(response);
+    } catch (error) {
+      
+        onClickAddPassengerInfoClose(error);
+        
     }
+    }
+    
 
 
   };
