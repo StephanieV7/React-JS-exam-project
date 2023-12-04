@@ -18,7 +18,7 @@ export default function NavBar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to={'/'} >HOME</Nav.Link>
             <Nav.Link as={Link} to={'/about'} >ABOUT</Nav.Link>
-            <Nav.Link as={Link} to={'/news'} >NEWS</Nav.Link>
+            <Nav.Link as={Link} to={'/blog'} >BLOG</Nav.Link>
             {isAuthenticated && (
               <>
                 <Nav.Link as={Link} to={'/trips'} >MY TRIPS</Nav.Link>

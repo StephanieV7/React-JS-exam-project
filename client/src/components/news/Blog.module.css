@@ -1,0 +1,69 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    color: white !important;
+    padding: 10px;
+    overflow-y: auto;
+    font-family: 'Exo 2', sans-serif;
+    margin:0 auto;
+
+}
+
+.mainContainer::-webkit-scrollbar {
+    width: 12px;
+}
+
+.mainContainer::-webkit-scrollbar-thumb {
+    background-color: rgba(21, 42, 59, 0.75);
+    border-radius: 6px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 10vh;
+    padding-right: 200px;
+}
+
+.addTripButton {
+    font-size: 20px;
+    padding: 10px 20px;
+    color: #ffffff;
+    border-color: #1c394e;
+    background-color: rgba(21, 42, 59, 0.6);
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.75);
+}
+
+.addTripButton:hover {
+    background-color: #415f79;
+    color: white;
+}
+
+.formDiv {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.articleContainer {
+    border: 2px solid #34515e;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    width: 60%;
+    margin: auto;
+}
+
+.articleContainer h1 {
+    color: #f0fffc;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.articleContainer p {
+    color: white !important;
+    text-align: inherit;
+}
