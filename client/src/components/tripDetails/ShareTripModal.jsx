@@ -21,7 +21,7 @@ export const ShareTripModal = ({ show, tripId,
 
         const checkUser = () => {
             for (const user of userList) {
-                if (user._email === formValues.email) {
+                if (user.email === formValues.email) {
                     return true
                 }
 
@@ -34,7 +34,7 @@ export const ShareTripModal = ({ show, tripId,
             const data = { shared: formValues.email };
 
             const result = await tripService.edit(tripId, data);
-            console.log(result);
+            
             onShareClick();
             onShareClickClose();
         }

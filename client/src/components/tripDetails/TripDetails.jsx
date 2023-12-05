@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as tripService from '../../services/tripService';
-import { Button, Card } from "react-bootstrap";
+import { Alert, Button, Card } from "react-bootstrap";
 //import GoogleMapComponent from "./addMoreDetails/GoogleMaps";
 import styles from './TripDetails.module.css'
 import * as sharedService from '../../services/sharedService';
@@ -12,6 +12,7 @@ import AuthContext from '../../contexts/AuthContext';
 import { formatDate } from "../../utils/dateUtil";
 import DeletePassengerInfoModal from "./DeletePassengerInfoModal";
 import PassengerInfoContext from '../../contexts/PassengerInfoContext';
+import EditPassengerInfoModal from "./EditPassengerInfoModal";
 
 
 export default function TripDetails() {
@@ -30,7 +31,9 @@ export default function TripDetails() {
 
     const [showShareTrip, setShowShareTrip] = useState(false);
 
-    const [showDeleteTrip, setShowDeleteTrip] = useState(false)
+    const [showDeleteTrip, setShowDeleteTrip] = useState(false);
+
+    const [showEditPassengerInfo, setShowEditPassengerInfo] = useState(false);
 
     const { _id } = useParams();
     const { _id: userId } = useContext(AuthContext);
@@ -47,7 +50,7 @@ export default function TripDetails() {
             }
 
             try {
-                const passengerInfoResult = await sharedService.getPassengerInfo(_id);
+                const passengerInfoResult = await sharedService.getAllPassengersInfo(_id);
                 console.log(passengerInfoResult);
                 setPassengerInfo(passengerInfoResult);
             } catch (error) {
@@ -93,19 +96,22 @@ export default function TripDetails() {
     }
 
     const onShareClickClose = () => {
-        setShowShareTrip(false)
+        setShowShareTrip(false);
     }
     const onShareClick = () => {
-        setShowShareTrip(true)
+        setShowShareTrip(true);
     }
+
     const onDeleteClickClose = () => {
-        setShowDeleteTrip(false)
+        setShowDeleteTrip(false);
     }
     const onDeleteClick = () => {
-        setShowDeleteTrip(true)
+        setShowDeleteTrip(true);
     }
+
+
     const onDeleteInfoClickClose = () => {
-        setShowDeletePassengerInfo(false)
+        setShowDeletePassengerInfo(false);
     }
     const onDeleteInfoClick = () => {
         setShowDeletePassengerInfo(true);
@@ -114,16 +120,24 @@ export default function TripDetails() {
 
     const onDeleteSubmit = (error) => {
         setAddedInfo(false);
-        setError(error)
+        setError(error);
 
     }
 
+    const onEditInfoClickClose = (error) => {
+        setShowEditPassengerInfo(false);
+        setError(error);
+    }
+    const onEditInfoClick = () => {
+        setShowEditPassengerInfo(true);
+
+    }
 
     console.log(trip);
-
     return (
 
         <div className={styles.details}>
+            {error && <Alert variant="danger">{error}</Alert>}
             {trip._ownerId === userId ?
                 <div className={styles.buttonContainer}>
                     <Button variant="primary" onClick={() => navigate(`/updateTrip/${_id}`)}>Edit/ Update</Button>
@@ -157,6 +171,7 @@ export default function TripDetails() {
                 <GoogleMapComponent />
             </div> */}
             <div className={styles.mainDetailsContainer}>
+            {trip.shared && <div>Shared to {trip.shared}</div>}
 
                 {trip.destinations.map((d, i) => (
                     <Card key={i} >
@@ -194,8 +209,11 @@ export default function TripDetails() {
 
                         </Card.Body>
                         <Button variant="danger" onClick={onDeleteInfoClick} disabled={passengerInfo[0]._ownerId !== userId}> Delete info</Button>
-
                         {showDeletePassengerInfo && <DeletePassengerInfoModal showDeletePassengerInfo={showDeletePassengerInfo} passengerInfoId={passengerInfo[0]._id} onDeleteInfoClickClose={onDeleteInfoClickClose} onDeleteInfoClick={onDeleteInfoClick} onDeleteSubmit={onDeleteSubmit} />}
+                        
+                        <Button variant="primary" onClick={onEditInfoClick} disabled={passengerInfo[0]._ownerId !== userId}> Edit/Update info</Button>
+
+                        {showEditPassengerInfo && <EditPassengerInfoModal showEditPassengerInfo={showEditPassengerInfo} passengerInfoId={passengerInfo[0]._id} onEditInfoClickClose={onEditInfoClickClose} onEditInfoClick={onEditInfoClick} />}
                     </Card>
 
 
