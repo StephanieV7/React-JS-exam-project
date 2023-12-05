@@ -2,7 +2,10 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as tripService from '../../services/tripService';
 import { Alert, Button, Card } from "react-bootstrap";
-//import GoogleMapComponent from "./addMoreDetails/GoogleMaps";
+
+import GoogleMapComponent from "./googleMaps/GoogleMaps";
+import { LoadScript } from '@react-google-maps/api';
+
 import styles from './TripDetails.module.css'
 import * as sharedService from '../../services/sharedService';
 import AddPassengerInfoModal from "./AddPassengerInfoModal";
@@ -137,7 +140,7 @@ export default function TripDetails() {
     return (
 
         <div className={styles.details}>
-            {error && <Alert variant="danger">{error}</Alert>}
+
             {trip._ownerId === userId ?
                 <div className={styles.buttonContainer}>
                     <Button variant="primary" onClick={() => navigate(`/updateTrip/${_id}`)}>Edit/ Update</Button>
@@ -165,13 +168,8 @@ export default function TripDetails() {
 
 
             <h2 className={styles.headlines}>{trip.title}</h2>
-
-            {/* <div>
-                <h1>My React Google Maps App</h1>
-                <GoogleMapComponent />
-            </div> */}
             <div className={styles.mainDetailsContainer}>
-            {trip.shared && <div>Shared to {trip.shared}</div>}
+                {trip.shared && <div>Shared to {trip.shared}</div>}
 
                 {trip.destinations.map((d, i) => (
                     <Card key={i} >
@@ -183,13 +181,22 @@ export default function TripDetails() {
                         {d.arrivalTime !== undefined && d.arrivalTime !== "" && <Card.Body>Arrival time: {d.arrivalTime}</Card.Body>}
                         {d.endDate !== undefined && d.endDate !== '' && <Card.Body>End date: {formatDate(d.endDate)}</Card.Body>}
                         {d.departureTime !== undefined && d.departureTime !== "" && <Card.Body>Departure time: {d.departureTime}</Card.Body>}
-                        {d.accomodation !== undefined && d.accomodation !== "" && <Card.Body>Accomodation: {d.accomodation}</Card.Body>}
+                        {d.accomodation !== undefined && d.accomodation !== "" && <Card.Body> Accomodation: {d.accomodation} </Card.Body>}
                         {d.currency !== undefined && d.currency !== "" && <Card.Body>Currency: {d.currency}</Card.Body>}
                         {d.additionalNotes !== undefined && d.additionalNotes !== "" && <Card.Body>Additional Notes: {d.additionalNotes}</Card.Body>}
                     </Card>
 
                 ))}
 
+            </div>
+
+            {/* <div style={{
+                width: '300px',
+                minHeight: '300px',
+                margin: "auto"
+            }}> */}
+            <div className={styles.mapContainer}>
+                <GoogleMapComponent address={trip.destinations[0].accomodation} />
             </div>
 
             <div>
@@ -210,7 +217,7 @@ export default function TripDetails() {
                         </Card.Body>
                         <Button variant="danger" onClick={onDeleteInfoClick} disabled={passengerInfo[0]._ownerId !== userId}> Delete info</Button>
                         {showDeletePassengerInfo && <DeletePassengerInfoModal showDeletePassengerInfo={showDeletePassengerInfo} passengerInfoId={passengerInfo[0]._id} onDeleteInfoClickClose={onDeleteInfoClickClose} onDeleteInfoClick={onDeleteInfoClick} onDeleteSubmit={onDeleteSubmit} />}
-                        
+
                         <Button variant="primary" onClick={onEditInfoClick} disabled={passengerInfo[0]._ownerId !== userId}> Edit/Update info</Button>
 
                         {showEditPassengerInfo && <EditPassengerInfoModal showEditPassengerInfo={showEditPassengerInfo} passengerInfoId={passengerInfo[0]._id} onEditInfoClickClose={onEditInfoClickClose} onEditInfoClick={onEditInfoClick} />}

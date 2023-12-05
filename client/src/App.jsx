@@ -19,6 +19,7 @@ import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 import UpdateTrip from './components/tripUpdate/TripUpdate';
 import Blog from './components/news/Blog';
 import AddArticle from './components/news/AddArticle';
+import { LoadScript } from '@react-google-maps/api';
 
 
 
@@ -30,10 +31,9 @@ function App() {
 
       <AuthProvider>
         <PassengerInfoProvider>
-        <div>
+          <div>
+            <NavBar />
 
-          <NavBar />
-          
             <Routes>
               <Route path='/' element={<Home />} />
 
@@ -58,13 +58,14 @@ function App() {
               </Route>
 
             </Routes>
-         
-          <Footer />
-        </div>
 
- </PassengerInfoProvider>
+            <Footer />
+
+          </div>
+
+        </PassengerInfoProvider>
       </AuthProvider>
-    </ErrorBoundary>
+    </ErrorBoundary >
 
   )
 }
