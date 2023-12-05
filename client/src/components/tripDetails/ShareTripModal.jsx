@@ -1,6 +1,7 @@
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import { useState } from 'react';
 import * as tripService from '../../services/tripService'
+import * as registeredUsersService from '../../services/registeredUsersCopy'
 
 
 export const ShareTripModal = ({ show, tripId,
@@ -8,6 +9,7 @@ export const ShareTripModal = ({ show, tripId,
 }) => {
 
     const [formValues, setFormValues] = useState({ email: '' });
+    const [error, setError] = useState(false);
 
     const onChangeHandler = (e) => {
         setFormValues(state => ({ ...state, [e.target.name]: e.target.value }))
@@ -15,16 +17,27 @@ export const ShareTripModal = ({ show, tripId,
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        const userList = await registeredUsersService.getRegisteredUsersCopy();
 
-        const data = { shared: formValues.email };
+        const checkUser = () => {
+            for (const user of userList) {
+                if (user._email === formValues.email) {
+                    return true
+                }
 
-        const result = await tripService.edit(tripId, data);
-        console.log(result);
-        onShareClick();
-        onShareClickClose();
+            }
+            setError('The person with this email address is not registered.')
+            return false
+        }
 
-        //to-do: add error handling?
-        //to-do: add form validation
+        if (checkUser()) {
+            const data = { shared: formValues.email };
+
+            const result = await tripService.edit(tripId, data);
+            console.log(result);
+            onShareClick();
+            onShareClickClose();
+        }
     }
     return (
         <Modal show={show} onEscapeKeyDown={onShareClickClose}>
@@ -33,6 +46,7 @@ export const ShareTripModal = ({ show, tripId,
             </Modal.Header>
 
             <Modal.Body>
+                {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={onSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
