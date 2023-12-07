@@ -1,7 +1,8 @@
 import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import { useState } from 'react';
 import * as tripService from '../../services/tripService'
-import * as registeredUsersService from '../../services/registeredUsersCopy'
+import * as registeredUsersService from '../../services/registeredUsers'
+import { login } from '../../services/authService';
 
 
 export const ShareTripModal = ({ show, tripId,
@@ -17,9 +18,10 @@ export const ShareTripModal = ({ show, tripId,
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        const userList = await registeredUsersService.getRegisteredUsersCopy();
+        const userList = await registeredUsersService.getRegisteredUsers(formValues.email);
 
         const checkUser = () => {
+           
             for (const user of userList) {
                 if (user.email === formValues.email) {
                     return true
@@ -34,7 +36,7 @@ export const ShareTripModal = ({ show, tripId,
             const data = { shared: formValues.email };
 
             const result = await tripService.edit(tripId, data);
-            
+            console.log(result);
             onShareClick();
             onShareClickClose();
         }

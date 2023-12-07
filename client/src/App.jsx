@@ -17,9 +17,8 @@ import SharedTrips from './components/sharedTrips/SharedTrips';
 import AuthGuard from './components/guards/AuthGuard';
 import ErrorBoundary from './components/errorBoundary/ErrorBoundary';
 import UpdateTrip from './components/tripUpdate/TripUpdate';
-import Blog from './components/news/Blog';
-import AddArticle from './components/news/AddArticle';
-import { LoadScript } from '@react-google-maps/api';
+import Blog from './components/blog/Blog';
+import AddArticle from './components/blog/AddArticle';
 
 
 

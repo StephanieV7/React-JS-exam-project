@@ -417,6 +417,7 @@
     const userService = new Service_1();
 
     userService.get('me', getSelf);
+    userService.get('users', getUsers);
     userService.post('register', onRegister);
     userService.post('login', onLogin);
     userService.get('logout', onLogout);
@@ -442,6 +443,10 @@
 
     function onLogout(context, tokens, query, body) {
         return context.auth.logout();
+    }
+    function getUsers(context, tokens, query, body) {
+        const users = context.protectedStorage.query('users', {});
+        return users;
     }
 
     var users = userService.parseRequest;

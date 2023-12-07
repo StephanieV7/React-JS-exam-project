@@ -1,6 +1,6 @@
 import { Button, Form, Alert, Modal } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import * as sharedService from '../../services/sharedService'
+import * as sharedService from '../../services/passengerInfoService'
 
 const formInitialState = {
   name: '',
@@ -61,9 +61,9 @@ export default function EditPassengerInfoModal({ showEditPassengerInfo, passenge
       try {
         const response = await sharedService.edit(passengerInfoId, formValues);
 
-        onEditInfoClickClose(error);
+        onEditInfoClickClose();
     } catch (error) {
-      console.log(error);
+     
       onEditInfoClickClose(error);
         
     }

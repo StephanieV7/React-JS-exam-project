@@ -31,21 +31,6 @@ export const register = async (email, password) => {
     return result
 
 }
-export const copyUserToCollection = async (email, _id) => {
-
-    const response = await fetch(`http://localhost:3030/data/registeredUsersCopy`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-            'X-Authorization': localStorage.getItem('accessToken')
-        },
-        body: JSON.stringify({ email, _id })
-    })
-    const result = response.json()
-
-    return result
-
-}
 
 export const logout = async () => {
     const response = await fetch(`${baseUrl}/logout`, { method: 'GET', headers: {

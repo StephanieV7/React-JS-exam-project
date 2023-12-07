@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
 
     const loginSubmitHandler = async (values) => {
         const result = await authService.login(values.email, values.password);
-        console.log(result);
         setAuth(result);
         localStorage.setItem('accessToken', result.accessToken);
         navigate('/');
@@ -26,8 +25,6 @@ export const AuthProvider = ({ children }) => {
         const result = await authService.register(values.email, values.password);
         setAuth(result);
         localStorage.setItem('accessToken', result.accessToken);
-        console.log(result);
-        await authService.copyUserToCollection(result.email, result._id)
         navigate('/')
     }
 

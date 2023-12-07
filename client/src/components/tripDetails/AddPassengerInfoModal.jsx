@@ -1,6 +1,6 @@
 import { Button, Form, Alert, Modal } from 'react-bootstrap';
 import { useState } from 'react';
-import * as sharedService from '../../services/sharedService'
+import * as sharedService from '../../services/passengerInfoService'
 import { useNavigate } from 'react-router-dom';
 
 const formInitialState = {

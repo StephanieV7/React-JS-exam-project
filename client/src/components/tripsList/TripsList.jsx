@@ -7,7 +7,7 @@ import AuthContext from '../../contexts/AuthContext';
 import styles from './TripsList.module.css'
 
 
-export default function AllTrips() {
+export default function TripsList() {
     const [trips, setTrips] = useState([]);
     const navigate = useNavigate();
     const { _id } = useContext(AuthContext)
@@ -20,7 +20,7 @@ export default function AllTrips() {
     const onClickAddTrip = () => {
         navigate('/addTrip')
     }
-
+console.log(trips);
     return (
         <>
 
@@ -30,15 +30,15 @@ export default function AllTrips() {
             </div>
 
             <div className={styles.mainContainer}>
-                {trips.length > 0 
-                ?    <Stack direction="horizontal" gap={3}>
+                {trips.length > 0
+                    ? <Stack direction="horizontal" gap={3}>
                         {
                             trips.map(trip => <TripTemplate key={trip._id} {...trip} />)
                         }
 
                     </Stack>
-                : <h2>No added trips.</h2>
-}
+                    : <h2>No added trips.</h2>
+                }
             </div>
 
         </>

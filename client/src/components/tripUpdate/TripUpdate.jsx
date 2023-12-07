@@ -152,6 +152,7 @@ export default function UpdateTrip() {
                 type="text"
                 value={destination.currency}
                 onChange={(e) => changeHandler(e, index)}>
+                <option>Choose currency</option>
                 <option>United States Dollar (USD)</option>
                 <option>Euro (EUR)</option>
                 <option>Japanese Yen (JPY)</option>

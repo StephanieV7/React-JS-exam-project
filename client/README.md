@@ -12,7 +12,6 @@
 - **Collections:**
     - trips
     - shared trips
-    - copy of registered users
     - passenger information
     - articles
 - **Guest Access:**

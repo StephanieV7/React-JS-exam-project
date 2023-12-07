@@ -1,13 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as tripService from '../../services/tripService';
-import { Alert, Button, Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 import GoogleMapComponent from "./googleMaps/GoogleMaps";
-import { LoadScript } from '@react-google-maps/api';
 
 import styles from './TripDetails.module.css'
-import * as sharedService from '../../services/sharedService';
+import * as sharedService from '../../services/passengerInfoService';
 import AddPassengerInfoModal from "./AddPassengerInfoModal";
 import ShareTripModal from "./ShareTripModal";
 import DeleteTripModal from "./DeleteTripModal";
@@ -62,14 +61,19 @@ export default function TripDetails() {
         };
 
         fetchData();
+        console.log('rerenderd - main hook');
     }, [_id]);
 
     useEffect(() => {
         if (trip._id) {
             setLoadedTripInfo(true);
         }
-
+        console.log('rerendered - trip loaded');
     }, [trip]);
+
+    // useEffect(() => {
+    //     console.log('rerender', trip.shared);
+    // }, [trip.shared]); //не работи
 
     if (!loadedTripInfo) {
         return <p>Loading...</p>;
@@ -98,7 +102,9 @@ export default function TripDetails() {
         }
     }
 
-    const onShareClickClose = () => {
+    const onShareClickClose = async () => {
+        const tripResult = await tripService.getOne(_id);
+        setTrip(tripResult);
         setShowShareTrip(false);
     }
     const onShareClick = () => {
@@ -127,7 +133,9 @@ export default function TripDetails() {
 
     }
 
-    const onEditInfoClickClose = (error) => {
+    const onEditInfoClickClose = async (error) => {
+        const passengerInfoResult = await sharedService.getAllPassengersInfo(_id);
+        setPassengerInfo(passengerInfoResult);
         setShowEditPassengerInfo(false);
         setError(error);
     }
@@ -137,6 +145,8 @@ export default function TripDetails() {
     }
 
     console.log(trip);
+    console.log('this is the error', error);
+    console.log(passengerInfo);
     return (
 
         <div className={styles.details}>
@@ -172,32 +182,40 @@ export default function TripDetails() {
                 {trip.shared && <div>Shared to {trip.shared}</div>}
 
                 {trip.destinations.map((d, i) => (
-                    <Card key={i} >
-                        <Card.Body>
-                            <span>Destination:</span>
-                            <span className={styles.spanValues}> {d.destination}</span>
-                        </Card.Body>
-                        {d.startDate !== undefined && d.startDate !== '' && <Card.Body>Start date: {formatDate(d.startDate)}</Card.Body>}
-                        {d.arrivalTime !== undefined && d.arrivalTime !== "" && <Card.Body>Arrival time: {d.arrivalTime}</Card.Body>}
-                        {d.endDate !== undefined && d.endDate !== '' && <Card.Body>End date: {formatDate(d.endDate)}</Card.Body>}
-                        {d.departureTime !== undefined && d.departureTime !== "" && <Card.Body>Departure time: {d.departureTime}</Card.Body>}
-                        {d.accomodation !== undefined && d.accomodation !== "" && <Card.Body> Accomodation: {d.accomodation} </Card.Body>}
-                        {d.currency !== undefined && d.currency !== "" && <Card.Body>Currency: {d.currency}</Card.Body>}
-                        {d.additionalNotes !== undefined && d.additionalNotes !== "" && <Card.Body>Additional Notes: {d.additionalNotes}</Card.Body>}
-                    </Card>
+                    <div key={i}>
+                        <Card  >
+                            {d.destination !== undefined && d.destination !== '' && <Card.Body>
+                                <span>Destination:</span>
+                                <span className={styles.spanValues}> {d.destination}</span>
+                            </Card.Body>}
+                            {d.startDate !== undefined && d.startDate !== '' && <Card.Body>Start date: {formatDate(d.startDate)}</Card.Body>}
+                            {d.arrivalTime !== undefined && d.arrivalTime !== "" && <Card.Body>Arrival time: {d.arrivalTime}</Card.Body>}
+                            {d.endDate !== undefined && d.endDate !== '' && <Card.Body>End date: {formatDate(d.endDate)}</Card.Body>}
+                            {d.departureTime !== undefined && d.departureTime !== "" && <Card.Body>Departure time: {d.departureTime}</Card.Body>}
+                            {d.accomodation !== undefined && d.accomodation !== "" && <Card.Body> Accomodation: {d.accomodation} </Card.Body>}
+                            {d.currency !== undefined && d.currency !== "" && <Card.Body>Currency: {d.currency}</Card.Body>}
+                            {d.additionalNotes !== undefined && d.additionalNotes !== "" && <Card.Body>Additional Notes: {d.additionalNotes}</Card.Body>}
+                        </Card>
+                        {d.destination !== "" && d.accomodation && <div className={styles.mapContainer}>
+                            <h5 styles={styles.headlines}>CHECK ON THE MAP</h5>
+                            <GoogleMapComponent address={d.accomodation} />
+                        </div>}
+                    </div>
+
+
 
                 ))}
 
             </div>
+            {/* {trip.destinations.map((d) => (
+                (d.accomodation !== "" && d.accomodation !== undefined) && (
+                    <div className={styles.mapContainer}>
+                        <h4>{d.destination}</h4>
+                        <GoogleMapComponent address={d.accomodation} />
+                    </div>
+                )
+            ))} */}
 
-            {/* <div style={{
-                width: '300px',
-                minHeight: '300px',
-                margin: "auto"
-            }}> */}
-            <div className={styles.mapContainer}>
-                <GoogleMapComponent address={trip.destinations[0].accomodation} />
-            </div>
 
             <div>
                 {passengerInfo.length > 0 ? passengerInfo.map((x, _id) => (

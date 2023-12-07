@@ -1,5 +1,6 @@
 import { Card, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { formatDate } from "../../../utils/dateUtil"
 
 export default function TripTemplate({ _id, title, destinations }) {
     
@@ -11,7 +12,7 @@ export default function TripTemplate({ _id, title, destinations }) {
                     <Card.Title>{title}</Card.Title>
                     <Card.Text>
                         Destination: {destinations.map((object) => object.destination).join(', ')} <br />
-                        Start date: {destinations[0].startDate} 
+                        Start date: {formatDate(destinations[0].startDate)} 
                     </Card.Text>
 
                     <Button as={Link} to={`/trips/${_id}`} variant="primary">Details</Button>

@@ -4,10 +4,8 @@ export const getAll = async (_id) => {
 
     const query = new URLSearchParams({
         where: `_ownerId="${_id}"`,
-        sortBy: `_createdOn`
-        // sortBy: `_createdOn desc`
     })
-    const response = await fetch(`${baseUrl}?${query}`)
+    const response = await fetch(`${baseUrl}?${query}&sortBy=_createdOn%20desc`)
     const result = await response.json();
     return result;
 }
