@@ -1,13 +1,15 @@
-import styles from './Blog.module.css';
+import styles from './AddArticle.module.css';
 import {useState } from "react";
 import { Form, Button, Stack } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthContext from '../../contexts/AuthContext';
 
 import * as blogService from '../../services/blogService';
 
 export default function AddArticle() {
+    const { username } = useContext(AuthContext);
     const navigate = useNavigate();
-
     const [formValues, setFormValues] = useState({
         headline: "",
         body: ""
@@ -19,8 +21,7 @@ export default function AddArticle() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-
-        const result = await blogService.createNews(formValues);
+        const result = await blogService.createArticle(formValues, username);
         navigate('/blog')
 
      
@@ -29,8 +30,8 @@ export default function AddArticle() {
             body: ""
         });
     };
-
-    return (<div className={styles.formDiv}>
+    console.log(username);
+    return (<div className={styles.addArticle}>
 
         <Form onSubmit={onSubmit}>
             <Form.Group className="mb-3">
@@ -39,7 +40,7 @@ export default function AddArticle() {
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Article Body</Form.Label>
-                <Form.Control type="text" name='body' value={formValues.body} onChange={onChangeHandler} />
+                <Form.Control as="textarea" name='body' value={formValues.body} onChange={onChangeHandler} style={{ height: '400px'}} />
             </Form.Group>
             <Button variant="primary" type='submit' style={{ marginLeft: '10px' }}>Upload</Button>
           
@@ -47,3 +48,4 @@ export default function AddArticle() {
         
         </div>)
 }
+

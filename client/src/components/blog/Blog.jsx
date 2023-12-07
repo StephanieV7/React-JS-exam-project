@@ -13,7 +13,7 @@ const Blog = () => {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
-        blogService.getAllNews()
+        blogService.getAllArticles()
             .then(result => setArticles(result))
     }, []);
 
@@ -21,6 +21,15 @@ const Blog = () => {
         navigate('/addArticle')
     }
 
+    const onClickEdit = (id) => {
+        
+    }
+
+    const onClickDelete = async (id) => {
+        await blogService.deleteArticle(id);
+       const result=  await blogService.getAllArticles();
+        setArticles(result)
+    }
 
     return (
         <div className={styles.mainContainer}>
@@ -39,12 +48,14 @@ const Blog = () => {
                     {articles.map((item) => (
                         <div key={item._id} className={styles.articleContainer}>
                             <h1>{item.headline}</h1>
+                            <p style={{textAlign: 'right'}}>By: {item.author}</p>
                             <p>{item.body}</p>
                             {item._ownerId === userId &&
                                 <>
-                                    <Button variant="primary" type='submit' style={{ marginLeft: '10px' }}>Edit</Button>
-                                    <Button variant="danger" type='submit' style={{ marginLeft: '10px' }}>Delete</Button>
+                                    <Button variant="primary" style={{ marginLeft: '10px' }} onClick={() => onClickEdit(item._id)}>Edit</Button>
+                                    <Button variant="danger" style={{ marginLeft: '10px' }} onClick={() => onClickDelete(item._id)}>Delete</Button>
                                 </>}
+                            
                         </div>
                     ))}
 

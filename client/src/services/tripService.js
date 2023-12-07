@@ -72,8 +72,6 @@ export const remove = async (_id) => {
         method: 'DELETE', headers: {
             'X-Authorization': localStorage.getItem('accessToken')
         },
-    })
-    const result = await response.json();
-    return result;
+    });
 
 }

@@ -54,6 +54,8 @@
     margin-bottom: 16px;
     width: 60%;
     margin: auto;
+    text-align: justify;
+    
 }
 
 .articleContainer h1 {

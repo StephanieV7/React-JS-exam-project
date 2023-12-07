@@ -86,9 +86,6 @@ export const removePassengerInfo = async (_id) => {
         if (!response.ok) {
             throw new Error(`Failed to delete passenger info: ${response.status}`);
         }
-
-        const result = await response.json();
-        return result;
     } catch (error) {
        
         throw error;

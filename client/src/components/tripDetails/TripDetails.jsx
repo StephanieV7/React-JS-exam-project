@@ -6,7 +6,7 @@ import { Button, Card } from "react-bootstrap";
 import GoogleMapComponent from "./googleMaps/GoogleMaps";
 
 import styles from './TripDetails.module.css'
-import * as sharedService from '../../services/passengerInfoService';
+import * as passengerInfoService from '../../services/passengerInfoService';
 import AddPassengerInfoModal from "./AddPassengerInfoModal";
 import ShareTripModal from "./ShareTripModal";
 import DeleteTripModal from "./DeleteTripModal";
@@ -52,7 +52,7 @@ export default function TripDetails() {
             }
 
             try {
-                const passengerInfoResult = await sharedService.getAllPassengersInfo(_id);
+                const passengerInfoResult = await passengerInfoService.getAllPassengersInfo(_id);
                 console.log(passengerInfoResult);
                 setPassengerInfo(passengerInfoResult);
             } catch (error) {
@@ -106,7 +106,7 @@ export default function TripDetails() {
         const tripResult = await tripService.getOne(_id);
         setTrip(tripResult);
         setShowShareTrip(false);
-    }
+    } //трябва ли да вкарам заявките в useЕffеct - в момента се ъпдейтва правилно.
     const onShareClick = () => {
         setShowShareTrip(true);
     }
@@ -134,7 +134,7 @@ export default function TripDetails() {
     }
 
     const onEditInfoClickClose = async (error) => {
-        const passengerInfoResult = await sharedService.getAllPassengersInfo(_id);
+        const passengerInfoResult = await passengerInfoService.getAllPassengersInfo(_id);
         setPassengerInfo(passengerInfoResult);
         setShowEditPassengerInfo(false);
         setError(error);
@@ -207,15 +207,6 @@ export default function TripDetails() {
                 ))}
 
             </div>
-            {/* {trip.destinations.map((d) => (
-                (d.accomodation !== "" && d.accomodation !== undefined) && (
-                    <div className={styles.mapContainer}>
-                        <h4>{d.destination}</h4>
-                        <GoogleMapComponent address={d.accomodation} />
-                    </div>
-                )
-            ))} */}
-
 
             <div>
                 {passengerInfo.length > 0 ? passengerInfo.map((x, _id) => (

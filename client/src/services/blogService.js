@@ -1,6 +1,6 @@
 const baseUrl = 'http://localhost:3030/data/news'
 
-export const getAllNews = async () => {
+export const getAllArticles = async () => {
     try {
         const response = await fetch(`${baseUrl}`);
 
@@ -11,23 +11,47 @@ export const getAllNews = async () => {
         const result = await response.json();
         return result;
     } catch (error) {
-        
-        throw error; 
+
+        throw error;
     }
 };
 
-export const createNews = async (newsData) => {
-    
+export const createArticle = async (data, username) => {
+    data.author = username;
     const response = await fetch(`${baseUrl}`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
             'X-Authorization': localStorage.getItem('accessToken')
         },
-        body: JSON.stringify(newsData)
+        body: JSON.stringify(data)
     });
 
     const result = await response.json();
 
     return result
+}
+export const editArticle = async (data) => {
+
+    const response = await fetch(`${baseUrl}`, {
+        method: 'PATCH',
+        headers: {
+            'content-type': 'application/json',
+            'X-Authorization': localStorage.getItem('accessToken')
+        },
+        body: JSON.stringify(data)
+    });
+
+    const result = await response.json();
+
+    return result
+}
+export const deleteArticle = async (id) => {
+
+    await fetch(`${baseUrl}/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'X-Authorization': localStorage.getItem('accessToken')
+        },
+    });
 }
