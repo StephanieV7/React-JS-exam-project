@@ -30,7 +30,7 @@ export default function AddArticle() {
             body: ""
         });
     };
-    console.log(username);
+    
     return (<div className={styles.addArticle}>
 
         <Form onSubmit={onSubmit}>

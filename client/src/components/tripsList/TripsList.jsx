@@ -20,7 +20,7 @@ export default function TripsList() {
     const onClickAddTrip = () => {
         navigate('/addTrip')
     }
-console.log(trips);
+
     return (
         <>
 

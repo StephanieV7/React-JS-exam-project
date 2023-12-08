@@ -21,7 +21,14 @@ export default function UpdateTrip() {
 
     tripService.getOne(_id)
       .then(result => {
-        setFormValues(result)
+
+        const updatedFormValues = {
+          title: result.title || '',
+          destinations: result.destinations || [{ destination: '', startDate: '', arrivalTime: '', endDate: '', departureTime: '', accomodation: '', currency: '', additionalNotes: '' }],
+        };
+        setFormValues(updatedFormValues);
+
+
       });
 
   }, [_id]);

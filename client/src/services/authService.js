@@ -6,13 +6,12 @@ export const login = async (email, password) => {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-           
         },
         body: JSON.stringify({ email, password })
-    })
-    const result = response.json()
+    });
+    const result = response.json();
 
-    return result
+    return result;
 
 }
 
@@ -25,17 +24,18 @@ export const register = async (email, password) => {
            
         },
         body: JSON.stringify({ email, password })
-    })
-    const result = response.json()
+    });
+    const result = response.json();
 
-    return result
+    return result;
 
 }
 
 export const logout = async () => {
     const response = await fetch(`${baseUrl}/logout`, { method: 'GET', headers: {
         'X-Authorization': localStorage.getItem('accessToken')
-    } })
+    } });
+    
     if (response.status === 204) {
         return []
     }

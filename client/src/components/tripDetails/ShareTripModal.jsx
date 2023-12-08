@@ -1,7 +1,7 @@
 import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import { useState } from 'react';
 import * as tripService from '../../services/tripService'
-import * as registeredUsersService from '../../services/registeredUsers'
+import * as registeredUsersService from '../../services/registeredUsersService'
 import { login } from '../../services/authService';
 
 

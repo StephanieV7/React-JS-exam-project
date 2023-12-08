@@ -1,6 +1,6 @@
 import styles from './Blog.module.css';
 import { useContext, useEffect, useState } from "react";
-import { Form, Button, Stack } from "react-bootstrap";
+import { Button, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AuthContext from '../../contexts/AuthContext';
 import * as blogService from '../../services/blogService'
@@ -19,10 +19,6 @@ const Blog = () => {
 
     const onClickAddArticle = () => {
         navigate('/addArticle')
-    }
-
-    const onClickEdit = (id) => {
-        
     }
 
     const onClickDelete = async (id) => {
@@ -52,7 +48,7 @@ const Blog = () => {
                             <p>{item.body}</p>
                             {item._ownerId === userId &&
                                 <>
-                                    <Button variant="primary" style={{ marginLeft: '10px' }} onClick={() => onClickEdit(item._id)}>Edit</Button>
+                                    <Button variant="primary" style={{ marginLeft: '10px' }}>Edit</Button>
                                     <Button variant="danger" style={{ marginLeft: '10px' }} onClick={() => onClickDelete(item._id)}>Delete</Button>
                                 </>}
                             

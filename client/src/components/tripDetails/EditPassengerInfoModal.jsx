@@ -12,8 +12,7 @@ const formInitialState = {
   additionalNotes: '',
 };
 
-export default function EditPassengerInfoModal({ showEditPassengerInfo, passengerInfoId, onEditInfoClickClose, onEditInfoClick}) {
-
+export default function EditPassengerInfoModal({ showEditPassengerInfo, passengerInfoId, onEditInfoClickClose, onEditInfoClick, onEditInfoClickSubmit}) {
   const [formValues, setFormValues] = useState(formInitialState);
   const [error, setError] = useState('');
 
@@ -60,7 +59,7 @@ export default function EditPassengerInfoModal({ showEditPassengerInfo, passenge
 
       try {
         const response = await sharedService.edit(passengerInfoId, formValues);
-
+        onEditInfoClickSubmit(response)
         onEditInfoClickClose();
     } catch (error) {
      

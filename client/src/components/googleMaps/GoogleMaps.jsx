@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 
 const GoogleMapComponent = ({ address }) => {
   const [center, setCenter] = useState({ lat: 0, lng: 0 });

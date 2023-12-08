@@ -10,16 +10,17 @@ const RegisterFormKeys = {
     USERNAME: 'username',
     PASSWORD: 'password',
     REPEATPASSWORD: 'repeat-password',
-}
+};
 
 export default function Register() {
-    const {registerSubmitHandler} = useContext(AuthContext)
+    const {registerSubmitHandler} = useContext(AuthContext);
     const { formValues, onChange, onSubmit } = useForm(registerSubmitHandler, {
         [RegisterFormKeys.EMAIL]: '',
         [RegisterFormKeys.USERNAME]: '',
         [RegisterFormKeys.PASSWORD]: '',
         [RegisterFormKeys.REPEATPASSWORD]: '',
-    })
+    });
+
     return (
         <div className={styles.mainContainer}>
 

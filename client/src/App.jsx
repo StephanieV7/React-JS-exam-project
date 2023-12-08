@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './contexts/AuthContext';
-import { PassengerInfoProvider } from './contexts/PassengerInfoContext';
 
 import NavBar from './components/navBar/NavBar';
 import TripsList from './components/tripsList/TripsList';
@@ -29,7 +28,7 @@ function App() {
     <ErrorBoundary>
 
       <AuthProvider>
-        <PassengerInfoProvider>
+        
           <div>
             <NavBar />
 
@@ -62,7 +61,7 @@ function App() {
 
           </div>
 
-        </PassengerInfoProvider>
+      
       </AuthProvider>
     </ErrorBoundary >
 
