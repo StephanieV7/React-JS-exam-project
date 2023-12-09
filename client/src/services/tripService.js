@@ -1,32 +1,58 @@
 const baseUrl = 'http://localhost:3030/data/trips'
 
-export const getAll = async (_id) => {
+export const create = async (tripData) => {
 
-    const query = new URLSearchParams({
-        where: `_ownerId="${_id}"`,
-    })
-    const response = await fetch(`${baseUrl}?${query}&sortBy=_createdOn%20desc`)
-    const result = await response.json();
-    return result;
+    try {
+        const response = await fetch(`${baseUrl}`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'X-Authorization': localStorage.getItem('accessToken')
+            },
+            body: JSON.stringify(tripData)
+        });
+
+        if (!response.ok) {
+            const error = new Error('Error fetching data')
+            error.code = response.status;
+        }
+
+        const result = await response.json();
+
+        return result
+    } catch (error) {
+        throw error
+    }
 }
 
-export const getSharedTrips = async (email) => {
+export const getAll = async (userId) => {
 
-    const query = new URLSearchParams({
-        where: `shared="${email}"`
-    })
-    const response = await fetch(`http://localhost:3030/data/trips?${query}`)
-    const result = await response.json();
-    return result;
+    try {
+        const query = new URLSearchParams({
+            where: `_ownerId="${userId}"`,
+        });
+        const response = await fetch(`${baseUrl}?${query}&sortBy=_createdOn%20desc`);
+
+        if (!response.ok) {
+            const error = new Error('Error fetching data')
+            error.code = response.status;
+        }
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
 }
 
 export const getOne = async (_id) => {
     try {
 
         const response = await fetch(`${baseUrl}/${_id}`);
-       
+
         if (!response.ok) {
-            throw new Error(`Failed to fetch trip: ${response.status}`);
+            const error = new Error('Error fetching data')
+            error.code = response.status;
         }
 
         const result = await response.json();
@@ -37,42 +63,62 @@ export const getOne = async (_id) => {
     }
 };
 
-export const create = async (tripData) => {
-
-    const response = await fetch(`${baseUrl}`, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-            'X-Authorization': localStorage.getItem('accessToken')
-        },
-        body: JSON.stringify(tripData)
-    });
-
-    const result = await response.json();
-
-    return result
-}
 export const edit = async (_id, tripData) => {
-    const response = await fetch(`${baseUrl}/${_id}`, {
-        method: 'PATCH',
-        headers: {
-            'content-type': 'application/json',
-            'X-Authorization': localStorage.getItem('accessToken')
-        },
-        body: JSON.stringify(tripData)
-    });
+    try {
+        const response = await fetch(`${baseUrl}/${_id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                'X-Authorization': localStorage.getItem('accessToken')
+            },
+            body: JSON.stringify(tripData)
+        });
 
-    const result = await response.json();
+        if (!response.ok) {
+            const error = new Error('Error fetching data')
+            error.code = response.status;
+        }
 
-    return result
+        const result = await response.json();
+
+        return result
+    } catch (error) {
+        throw error
+    }
 }
 
 export const remove = async (_id) => {
 
-    const response = await fetch(`${baseUrl}/${_id}`, {
-        method: 'DELETE', headers: {
-            'X-Authorization': localStorage.getItem('accessToken')
-        },
-    });
+    try {
+        const response = await fetch(`${baseUrl}/${_id}`, {
+            method: 'DELETE', headers: {
+                'X-Authorization': localStorage.getItem('accessToken')
+            },
+        });
+        if (!response.ok) {
+            const error = new Error('Error fetching data')
+            error.code = response.status;
+        }
+    } catch (error) {
+        throw error
+    }
 
+}
+
+export const getSharedTrips = async (email) => {
+    try {
+        const query = new URLSearchParams({
+            where: `shared="${email}"`
+        });
+        const response = await fetch(`http://localhost:3030/data/trips?${query}`);
+
+        if (!response.ok) {
+            const error = new Error('Error fetching data')
+            error.code = response.status;
+        }
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error
+    }
 }

@@ -1,5 +1,4 @@
 import { Button, Modal } from 'react-bootstrap';
-import * as tripService from '../../services/tripService'
 import { useNavigate } from 'react-router-dom';
 import * as sharedService from '../../services/passengerInfoService';
 
@@ -18,14 +17,11 @@ export const DeletePassengerInfoModal = ({ showDeletePassengerInfo, passengerInf
             onDeleteInfoClickClose();
             navigate('/sharedTrips');
         } catch (error) {
-            
             onDeleteSubmit(error.message);
             onDeleteInfoClick();
             onDeleteInfoClickClose();
-            navigate('/sharedTrips');
-            
+            navigate('/sharedTrips');  
         }
-
     }
     return (
         <Modal show={showDeletePassengerInfo} onEscapeKeyDown={onDeleteInfoClickClose}>

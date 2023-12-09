@@ -10,8 +10,8 @@
 
 ## Features
 - **Collections:**
+    - users
     - trips
-    - shared trips
     - passenger information
     - articles
 - **Guest Access:**
@@ -31,12 +31,12 @@
   - View trips as cards in My Trips with title, destination, and start date.
   - Details page for each trip.
     - Edit/Update trip information.
-    - Share trip with another registered user.
+    - Share the trip with another registered user with whom you're travelling.
     - Delete the trip.
 
 - **Shared Trips:**
-  - View trips shared by other users.
-  - Add passenger information for shared trips.
+  - View trips which other users shared with you.
+  - Add your passenger information to the trip.
   - Edit and delete passenger information.
 
 - **Blog:**
@@ -73,17 +73,13 @@
 
 - Implemented using `react-router-dom` with protected routes.
 
-## Integration with Google Maps
+## API Integration
 
-- Planned integration to show the exact location of cities or places of accommodation.
+- Integrated Google Maps API and used it to show the exact location of places of accommodation.
 
 ## Testing
 
 - Future plan to write tests using Jest.
-
-## API Integration
-
-- Planned integration with Google Maps API and possibly Google Drive API.
 
 ## Deployment
 

@@ -5,14 +5,12 @@ export default class ErrorBoundary extends Component {
 
     constructor() {
         super()
-
         this.state = {
             hasError: false,
         }
     }
 
-    static getDerivedStateFromError(error) {
-        
+    static getDerivedStateFromError() {
         return {
             hasError: true,
         }
@@ -21,7 +19,6 @@ export default class ErrorBoundary extends Component {
     render() {
 
         if (this.state.hasError) {
-            
             return <Alert variant={"danger"}>
             Something went wrong
           </Alert>

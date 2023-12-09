@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import * as tripService from '../../services/tripService';
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Alert } from "react-bootstrap";
 
 import AuthContext from '../../contexts/AuthContext';
 import * as passengerInfoService from '../../services/passengerInfoService';
@@ -46,7 +46,9 @@ export default function TripDetails() {
                 setIsAddedInfo(passengerInfoResult.length > 0);
                 setPassengerInfo(passengerInfoResult);
             } catch (error) {
-                setError(error.message);
+                if (error.code !== 404) {
+                    setError(error)
+                }
             }
         };
 
@@ -117,7 +119,6 @@ export default function TripDetails() {
 
     const onEditInfoClickClose = async () => {
         setShowEditPassengerInfo(false);
-        // setError(error);
     };
 
     const onEditInfoClick = () => {
@@ -130,7 +131,7 @@ export default function TripDetails() {
 
     return (
         <div className={styles.details}>
-
+            {error && <Alert variant="danger">{error}</Alert>}
             {trip._ownerId === userId ?
                 <div className={styles.buttonContainer}>
                     <Button variant="primary" onClick={() => navigate(`/updateTrip/${_id}`)}>Edit/ Update</Button>

@@ -51,7 +51,6 @@ export default function UpdateTrip() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
     const result = validateForm(formValues);
 
     if (!result) {
@@ -60,10 +59,7 @@ export default function UpdateTrip() {
     } else {
       setError(result)
     }
-
-
   };
-
 
   return (
     <div className={styles.tripUpdate}>

@@ -25,9 +25,7 @@
   justify-content: flex-end !important;
   align-items: center !important;
   height: 10vh !important;
-  /* Set the height of the container to 100% of the viewport height */
   padding-right: 250px !important;
-  /* Optional: Add some padding to the right for spacing */
 }
 
 .mainButtons {

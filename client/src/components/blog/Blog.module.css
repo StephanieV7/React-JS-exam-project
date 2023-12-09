@@ -1,14 +1,9 @@
 .mainContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    color: white !important;
-    padding: 10px;
-    overflow-y: auto;
+    color: white;
     font-family: 'Exo 2', sans-serif;
-
+    align-content: center;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .mainContainer::-webkit-scrollbar {
@@ -25,7 +20,7 @@
     justify-content: flex-end;
     align-items: center;
     height: 10vh;
-    padding-right: 200px;
+    padding-right: 780px;
 }
 
 .addTripButton {
@@ -64,7 +59,8 @@
     text-align: center;
 }
 
-.articleContainer p {
-    color: white !important;
-    text-align: inherit;
+h1 {
+    text-align: center;
+    margin-top: 20px;
 }
+

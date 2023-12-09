@@ -15,18 +15,34 @@ export const AuthProvider = ({ children }) => {
 
 
     const loginSubmitHandler = async (values) => {
-        const result = await authService.login(values.email, values.password);
-        setAuth(result);
-        localStorage.setItem('accessToken', result.accessToken);
-        navigate('/');
+        try {
+            const result = await authService.login(values.email, values.password);
+            setAuth(result);
+            localStorage.setItem('accessToken', result.accessToken);
+            navigate('/');
+        } catch (error) {
+            if (error.code === 403) {
+                alert('Wrong username/password');
+            } else {
+                alert('Login error:', error);
+            }
+        }
     }
 
     const registerSubmitHandler = async (values) => {
-        const result = await authService.register(values.email, values.password);
-        setAuth(result);
-        localStorage.setItem('accessToken', result.accessToken);
-        navigate('/')
-    }
+        try {
+            const result = await authService.register(values.email, values.password);
+            
+            setAuth(result);
+            localStorage.setItem('accessToken', result.accessToken);
+            navigate('/');
+        } catch (error) {
+            if (error.code == 400) {
+                alert('Invalid input or email is already taken');
+            } else {
+                alert('Registration failed.');
+            }
+    }}
 
     const logoutHandler = () => {
         setAuth({});

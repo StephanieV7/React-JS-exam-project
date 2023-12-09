@@ -14,7 +14,6 @@ export default function TripTemplate({ _id, title, destinations }) {
                         Destination: {destinations.map((object) => object.destination).join(', ')} <br />
                         Start date: {formatDate(destinations[0].startDate)} 
                     </Card.Text>
-
                     <Button as={Link} to={`/trips/${_id}`} variant="primary">Details</Button>
                 </Card.Body>
             </Card>

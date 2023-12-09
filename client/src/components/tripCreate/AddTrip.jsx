@@ -19,7 +19,6 @@ export default function AddTrip() {
   const changeHandler = (e, index) => {
 
     const copyDestinations = [...formValues.destinations];
-    //copyDestinations[index][e.target.name] = e.target.value; това модифицира директно масива, затова даваше грешка
 
     copyDestinations[index] = {
       ...copyDestinations[index],

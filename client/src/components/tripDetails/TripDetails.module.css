@@ -15,7 +15,6 @@
     border-radius: 6px;
 }
 
-
 .buttonContainer {
     display: flex !important;
     justify-content: flex-end !important;
@@ -42,7 +41,6 @@
     margin-bottom: 20px;
     text-align: center;
     align-items: center !important;
-
 }
 
 .spanValues {
@@ -53,6 +51,7 @@
     margin-top: 5px;
     border-radius: 8px;
 }
+
 .mapContainer {
     width: 30vh;
     min-height: 30vh;

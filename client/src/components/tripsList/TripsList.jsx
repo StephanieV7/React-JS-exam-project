@@ -10,11 +10,18 @@ import styles from './TripsList.module.css'
 export default function TripsList() {
     const [trips, setTrips] = useState([]);
     const navigate = useNavigate();
-    const { _id } = useContext(AuthContext)
+    const { _id: userId } = useContext(AuthContext);
+
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-        tripService.getAll(_id)
+        tripService.getAll(userId)
             .then(result => setTrips(result))
+            .catch(error => {
+                if (error.code !== 404) {
+                    setError(error)
+                }
+            })
     }, [])
 
     const onClickAddTrip = () => {
@@ -23,7 +30,7 @@ export default function TripsList() {
 
     return (
         <>
-
+            {error && alert(error)}
             <div className={styles.buttonContainer}>
                 <Button className={styles.addTripButton} variant="outline-info" onClick={onClickAddTrip}>Add new trip</Button>
 

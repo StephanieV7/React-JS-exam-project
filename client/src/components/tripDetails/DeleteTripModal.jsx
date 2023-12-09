@@ -6,7 +6,6 @@ export const DeleteTripModal = ({ showDeleteTrip, tripId,
     onDeleteClickClose, onDeleteClick
 }) => {
 
-
 const navigate = useNavigate()
     const onSubmit = async (e) => {
         e.preventDefault();

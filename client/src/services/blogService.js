@@ -5,7 +5,7 @@ export const getAllArticles = async () => {
         const response = await fetch(`${baseUrl}`);
 
         if (!response.ok) {
-            throw new Error(`Failed to fetch news: ${response.status}`);
+            throw new Error(`Failed to fetch articles: ${response.status}`);
         }
 
         const result = await response.json();
@@ -31,21 +31,7 @@ export const createArticle = async (data, username) => {
 
     return result
 }
-export const editArticle = async (data) => {
 
-    const response = await fetch(`${baseUrl}`, {
-        method: 'PATCH',
-        headers: {
-            'content-type': 'application/json',
-            'X-Authorization': localStorage.getItem('accessToken')
-        },
-        body: JSON.stringify(data)
-    });
-
-    const result = await response.json();
-
-    return result
-}
 export const deleteArticle = async (id) => {
 
     await fetch(`${baseUrl}/${id}`, {

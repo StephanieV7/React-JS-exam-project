@@ -12,7 +12,6 @@ export default function NavBar() {
   return (
     <Navbar sticky='top' bg='4A5B72' expand="lg" className="navbar-custom">
       <Container>
-        {/* <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand> */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -36,7 +35,7 @@ export default function NavBar() {
 
             )}
           </Nav>
-
+          
           <Nav className="ml-auto">
             {isAuthenticated && <Navbar.Text style={{ color: 'white' }}> Logged in as {username}</Navbar.Text >}
           </Nav>

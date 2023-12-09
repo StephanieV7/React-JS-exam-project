@@ -36,7 +36,6 @@ export const ShareTripModal = ({ show, tripId,
             const data = { shared: formValues.email };
 
             const result = await tripService.edit(tripId, data);
-            console.log(result);
             onShareClick();
             onShareClickClose();
         }
