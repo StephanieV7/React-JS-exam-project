@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3030/data/news'
+const baseUrl = 'http://localhost:3030/data/blog'
 
 export const getAllArticles = async () => {
     try {
